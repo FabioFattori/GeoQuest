@@ -34,7 +34,9 @@ fun AppNavHost(navController: NavHostController,modifier: Modifier) {
             arguments = listOf(navArgument ("id") { type = NavType.StringType })
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")
-            DetailScreen(onBack = {navController.popBackStack()},id = id,modifier)
+            DetailScreen(
+                onBack = {navController.popBackStack()},
+                id = id,modifier)
         }
     }
 }
