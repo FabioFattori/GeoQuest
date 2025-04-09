@@ -1,11 +1,11 @@
-package com.example.geoquest.viewModels
+package com.example.geoquest.models.viewModels
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.geoquest.apiService.ApiService
-import com.example.geoquest.models.Player
+import com.example.geoquest.models.entities.Player
 import kotlinx.coroutines.launch
 
 class PlayerViewModel : ViewModel() {

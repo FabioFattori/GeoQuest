@@ -1,4 +1,4 @@
-package com.example.geoquest.models
+package com.example.geoquest.models.entities
 
 
 data class Player(

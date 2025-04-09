@@ -1,6 +1,6 @@
 package com.example.geoquest.apiService
 
-import com.example.geoquest.models.Player
+import com.example.geoquest.models.entities.Player
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
