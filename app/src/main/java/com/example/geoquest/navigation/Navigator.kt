@@ -18,41 +18,49 @@ import com.example.geoquest.screens.RegisterScreen
 import com.example.geoquest.ui.theme.getGradient
 
 @Composable
-fun AppNavHost(navController: NavHostController,modifier: Modifier) {
+fun AppNavHost(navController: NavHostController, modifier: Modifier) {
 
     NavHost(navController = navController, startDestination = "register") {
 
         composable(Screens.Register.route) {
-            RegisterScreen(modifier,
-                onLoginRedirect = {navController.navigate(Screens.Login.route)})
+            RegisterScreen(
+                modifier,
+                onLoginRedirect = { navController.navigate(Screens.Login.route) })
         }
 
         composable(Screens.Login.route) {
-            LoginScreen(modifier,
-                onRegisterRedirect = {navController.navigate(Screens.Register.route)})
+            LoginScreen(
+                modifier,
+                onRegisterRedirect = { navController.navigate(Screens.Register.route) })
         }
 
         composable(Screens.Home.route) {
             HomeScreen(onNavigateToDetail = { id ->
                 navController.navigate(Screens.Detail.createRoute(id))
-            },modifier)
+            }, modifier)
         }
 
         composable(
             route = Screens.Detail.route,
-            arguments = listOf(navArgument ("id") { type = NavType.StringType })
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")
             DetailScreen(
-                onBack = {navController.popBackStack()},
-                id = id,modifier)
+                onBack = { navController.popBackStack() },
+                id = id, modifier
+            )
         }
     }
 }
 
 @Composable
-fun HomeScreen(onNavigateToDetail: (String) -> Unit,modifier: Modifier) {
-    Column(modifier = modifier.fillMaxSize().background(getGradient()), horizontalAlignment = Alignment.CenterHorizontally) {
+fun HomeScreen(onNavigateToDetail: (String) -> Unit, modifier: Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(getGradient()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text("Home Screen")
         Button(onClick = { onNavigateToDetail("IDBABY") }) {
             Text("Vai a Dettaglio")

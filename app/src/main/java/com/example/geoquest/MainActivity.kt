@@ -15,11 +15,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.geoquest.ui.theme.GeoQuestTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.geoquest.navigation.AppNavHost
 import com.example.geoquest.models.viewModels.PlayerViewModel
+import com.example.geoquest.navigation.AppNavHost
+import com.example.geoquest.ui.theme.GeoQuestTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +34,9 @@ class MainActivity : ComponentActivity() {
                     //PlayerList(padding = innerPadding)
                     AppNavHost(
                         navController = navController,
-                        modifier = Modifier.fillMaxSize().padding(innerPadding)
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
                     )
                 }
             }
@@ -43,14 +45,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun PlayerList(viewModel: PlayerViewModel = viewModel(),padding: PaddingValues) {
-        LazyColumn(
-            modifier = Modifier.background(MaterialTheme.colorScheme.background),
-            contentPadding = padding,
-            ) {
-            items(viewModel.players.size) { player ->
-                Text(player.toString(), color = MaterialTheme.colorScheme.primary)
-            }
+fun PlayerList(viewModel: PlayerViewModel = viewModel(), padding: PaddingValues) {
+    LazyColumn(
+        modifier = Modifier.background(MaterialTheme.colorScheme.background),
+        contentPadding = padding,
+    ) {
+        items(viewModel.players.size) { player ->
+            Text(player.toString(), color = MaterialTheme.colorScheme.primary)
         }
+    }
 
 }
