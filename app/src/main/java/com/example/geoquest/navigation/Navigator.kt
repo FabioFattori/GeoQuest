@@ -16,12 +16,24 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.geoquest.screens.LoginScreen
+import com.example.geoquest.screens.RegisterScreen
 import com.example.geoquest.ui.theme.getGradient
 
 @Composable
 fun AppNavHost(navController: NavHostController,modifier: Modifier) {
 
-    NavHost(navController = navController, startDestination = "home") {
+    NavHost(navController = navController, startDestination = "register") {
+
+        composable(Screens.Register.route) {
+            RegisterScreen(modifier,
+                onLoginRedirect = {navController.navigate(Screens.Login.route)})
+        }
+
+        composable(Screens.Login.route) {
+            LoginScreen(modifier,
+                onRegisterRedirect = {navController.navigate(Screens.Register.route)})
+        }
 
         composable(Screens.Home.route) {
             HomeScreen(onNavigateToDetail = { id ->
