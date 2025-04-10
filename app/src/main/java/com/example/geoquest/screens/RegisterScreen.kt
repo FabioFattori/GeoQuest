@@ -1,11 +1,9 @@
 package com.example.geoquest.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Accessibility
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Key
 import androidx.compose.material.icons.rounded.LockReset
@@ -19,19 +17,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.components.Logo
-import androidx.compose.ui.unit.sp
 import com.example.geoquest.components.GenericInput
 import com.example.geoquest.components.GenericInputProps
 import com.example.geoquest.ui.theme.TextType
-import com.example.geoquest.ui.theme.getGradient
 import com.example.geoquest.ui.theme.getSize
 
 @Composable
 fun RegisterScreen(modifier: Modifier,onLoginRedirect:() -> Unit){
 
     val playerName = remember { mutableStateOf("") }
-
-
+    val email = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
+    val passwordConfermation = remember { mutableStateOf("") }
 
 
         Column(
@@ -44,7 +41,6 @@ fun RegisterScreen(modifier: Modifier,onLoginRedirect:() -> Unit){
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(top = 30.dp, bottom = 30.dp))
             GenericInput(
-                modifier = modifier,
                 props = GenericInputProps(
                     icon = Icons.Rounded.Accessibility,
                     label = "Nome Personaggio",
@@ -52,27 +48,24 @@ fun RegisterScreen(modifier: Modifier,onLoginRedirect:() -> Unit){
                 )
             )
             GenericInput(
-                modifier = modifier,
                 props = GenericInputProps(
                     icon = Icons.Rounded.Email,
                     label = "Email",
-                    text = playerName
+                    text = email
                 )
             )
             GenericInput(
-                modifier = modifier,
                 props = GenericInputProps(
                     icon = Icons.Rounded.Key,
                     label = "Password",
-                    text = playerName
+                    text = password
                 )
             )
             GenericInput(
-                modifier = modifier,
                 props = GenericInputProps(
                     icon = Icons.Rounded.LockReset,
                     label = "Conferma Password",
-                    text = playerName
+                    text = passwordConfermation
                 )
             )
             Button(

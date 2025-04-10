@@ -11,7 +11,7 @@ enum class TextType{
 
 fun getSize(type: TextType) : TextUnit{
     when(type){
-        TextType.BigTitle -> return 70.sp
+        TextType.BigTitle -> return 65.sp
         TextType.Title -> return 35.sp
         TextType.Normal -> return 24.sp
     }
