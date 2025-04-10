@@ -1,6 +1,7 @@
 package com.example.geoquest.ui.theme
 
 import android.os.Build
+import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -38,16 +39,9 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun GeoQuestTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
@@ -65,6 +59,7 @@ fun getGradient(): Brush {
         0.0f to MaterialTheme.colorScheme.surface,
         1f to MaterialTheme.colorScheme.surfaceVariant
     )
+
     return Brush.verticalGradient(
         colorStops = steps
     )

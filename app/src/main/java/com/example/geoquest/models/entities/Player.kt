@@ -14,5 +14,4 @@ data class Player(
     val helmet: EquippableItem,
     val weapon: EquippableItem,
     val rune: EquippableItem
-) {
-}
+)

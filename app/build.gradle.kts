@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
