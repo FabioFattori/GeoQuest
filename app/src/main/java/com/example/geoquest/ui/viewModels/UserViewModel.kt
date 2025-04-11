@@ -2,6 +2,8 @@ package com.example.geoquest.ui.viewModels
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.geoquest.apiService.dto.RegisterAndLoginResponse
+import com.example.geoquest.utilities.PreferenceManager
 
 class UserViewModel() : ViewModel() {
     val playerName = mutableStateOf("")
@@ -14,11 +16,11 @@ class UserViewModel() : ViewModel() {
     }
 
     private fun checkLoginParams(): Pair<Boolean, String>? {
-        if (email.value?.isEmpty() == true) {
+        if (email.value.isEmpty()) {
             return Pair(false, "L'email non può essere vuota")
         }
 
-        if (password.value?.isEmpty() == true) {
+        if (password.value.isEmpty()) {
             return Pair(false, "La password non può essere vuota")
         }
 
@@ -40,7 +42,7 @@ class UserViewModel() : ViewModel() {
             return validationResult
         }
 
-        if (playerName.value?.isEmpty() == true) {
+        if (playerName.value.isEmpty()) {
             return Pair(false, "Il nome del personaggio non può essere vuoto")
         }
 
@@ -55,5 +57,11 @@ class UserViewModel() : ViewModel() {
         }
 
         return Pair(true, "Accesso in corso...")
+    }
+
+    fun storeResponse(response: RegisterAndLoginResponse) {
+        PreferenceManager.saveToken(response.token)
+        PreferenceManager.saveObject("user", response.user)
+        PreferenceManager.saveObject("player", response.player)
     }
 }

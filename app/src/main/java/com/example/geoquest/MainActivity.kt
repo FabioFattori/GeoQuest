@@ -12,10 +12,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.geoquest.ui.theme.GeoQuestTheme
 import com.example.geoquest.ui.viewModels.PlayerViewModel
+import com.example.geoquest.utilities.PreferenceManager
 import com.example.geoquest.utilities.navigation.AppNavHost
 
 
@@ -26,6 +28,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             GeoQuestTheme(darkTheme = true) {
                 val navController = rememberNavController()
+                // initialize store for the app
+                PreferenceManager.init(context = LocalContext.current)
                 AppNavHost(
                     navController = navController,
                     modifier = Modifier
