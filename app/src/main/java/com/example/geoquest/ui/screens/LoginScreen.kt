@@ -1,0 +1,112 @@
+package com.example.geoquest.ui.screens
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AlternateEmail
+import androidx.compose.material.icons.rounded.Key
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.example.geoquest.apiService.ApiService
+import com.example.geoquest.apiService.dto.LoginParams
+import com.example.geoquest.apiService.dto.RegisterAndLoginResponse
+import com.example.geoquest.ui.components.ButtonProps
+import com.example.geoquest.ui.components.CustomButton
+import com.example.geoquest.ui.components.GenericInput
+import com.example.geoquest.ui.components.GenericInputProps
+import com.example.geoquest.ui.components.Logo
+import com.example.geoquest.ui.theme.TextType
+import com.example.geoquest.ui.theme.getSize
+import com.example.geoquest.ui.viewModels.UserViewModel
+import kotlinx.coroutines.launch
+
+@Composable
+fun LoginScreen(
+    modifier: Modifier,
+    onRegisterRedirect: () -> Unit,
+    snackBarHostState: SnackbarHostState,
+    userViewModel: UserViewModel = UserViewModel()
+) {
+    val coroutineScope = rememberCoroutineScope()
+
+    Column(
+        modifier = modifier.padding(20.dp, 30.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ) {
+        Logo(modifier)
+        Text(
+            "Accedi",
+            fontSize = getSize(TextType.BigTitle),
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(top = 30.dp, bottom = 30.dp)
+        )
+        GenericInput(
+            props = GenericInputProps(
+                icon = Icons.Rounded.AlternateEmail,
+                label = "Email",
+                text = userViewModel.email,
+                isEmail = true
+            )
+        )
+
+        GenericInput(
+            props = GenericInputProps(
+                icon = Icons.Rounded.Key,
+                label = "Password",
+                text = userViewModel.password,
+                isPassword = true
+            )
+        )
+
+        CustomButton(
+            props = ButtonProps(
+                label = "Accedi",
+                onClick = {
+                    coroutineScope.launch {
+                        val check = userViewModel.checkLoginData()
+                        if (check.first) {
+                            val params = LoginParams(
+                                email = userViewModel.email.value,
+                                password = userViewModel.password.value
+                            )
+                            try {
+                                val response = ApiService.retrofit.loginUser(params)
+                                if (response.isSuccessful) {
+                                    snackBarHostState.showSnackbar("Accesso avvenuto con successo!")
+                                    userViewModel.storeResponse(response.body() as RegisterAndLoginResponse)
+                                } else {
+                                    snackBarHostState.showSnackbar("Errore: ${response.code()} - ${response.message()}")
+                                }
+                            } catch (e: Exception) {
+                                snackBarHostState.showSnackbar("Errore di rete: ${e.localizedMessage}")
+                            }
+                        } else {
+                            snackBarHostState.showSnackbar(check.second)
+                        }
+                    }
+                }
+            ),
+            modifier = Modifier.padding(
+                top = 15.dp
+            )
+        )
+
+        CustomButton(
+            props = ButtonProps(
+                label = "Ho un Account",
+                onClick = onRegisterRedirect
+            ),
+            modifier = Modifier.padding(
+                top = 25.dp
+            )
+        )
+    }
+}
