@@ -1,7 +1,7 @@
-package com.example.geoquest.models.entities
-
+package com.example.geoquest.business.models
 
 data class Player(
+    val id: Int,
     val name: String,
     val level: Int,
     val experienceCollected: Int,
@@ -11,7 +11,7 @@ data class Player(
     val experienceNeeded: Int,
     val damage: Int,
     val maxHealth: Int,
-    val helmet: EquippableItem,
-    val weapon: EquippableItem,
-    val rune: EquippableItem
+    val helmetId: Int?,
+    val weaponId: Int?,
+    val runeId: Int?,
 )
