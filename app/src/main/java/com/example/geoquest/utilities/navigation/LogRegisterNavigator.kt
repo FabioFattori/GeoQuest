@@ -16,10 +16,10 @@ import com.example.geoquest.ui.screens.LoginScreen
 import com.example.geoquest.ui.screens.RegisterScreen
 
 @Composable
-fun AppNavHost(navController: NavHostController, modifier: Modifier) {
-    val snackbarHostState = remember { SnackbarHostState() }
+fun LogRegisterNavigator(navController: NavHostController, modifier: Modifier) {
+    val snackBarHostState = remember { SnackbarHostState() }
     Scaffold(
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+        snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
     ) { innerPadding ->
         NavHost(navController = navController, startDestination = "register") {
 
@@ -29,7 +29,7 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier) {
                         .fillMaxSize()
                         .padding(innerPadding),
                     onLoginRedirect = { navController.navigate(Screens.Login.route) },
-                    snackBarHostState = snackbarHostState
+                    snackBarHostState = snackBarHostState
                 )
             }
 
@@ -39,7 +39,7 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier) {
                         .fillMaxSize()
                         .padding(innerPadding),
                     onRegisterRedirect = { navController.navigate(Screens.Register.route) },
-                    snackBarHostState = snackbarHostState
+                    snackBarHostState = snackBarHostState
                 )
             }
 
