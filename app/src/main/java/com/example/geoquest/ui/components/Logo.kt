@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.example.geoquest.R
 
 @Composable
-fun Logo(modifier: Modifier) {
+fun Logo() {
     val image = painterResource(R.drawable.geoquest)
     val size = 150.dp
     Box(

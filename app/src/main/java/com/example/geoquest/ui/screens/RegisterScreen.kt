@@ -1,5 +1,6 @@
 package com.example.geoquest.ui.screens
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -15,9 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.geoquest.GameActivity
 import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.apiService.dto.NewUser
+import com.example.geoquest.apiService.dto.RegisterAndLoginResponse
 import com.example.geoquest.ui.components.ButtonProps
 import com.example.geoquest.ui.components.CustomButton
 import com.example.geoquest.ui.components.GenericInput
@@ -36,13 +40,13 @@ fun RegisterScreen(
     userViewModel: UserViewModel = UserViewModel()
 ) {
     val coroutineScope = rememberCoroutineScope()
-
+    val context = LocalContext.current
     Column(
         modifier = modifier.padding(20.dp, 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Logo(modifier)
+        Logo()
         Text(
             "Registrati",
             fontSize = getSize(TextType.BigTitle),
@@ -83,8 +87,7 @@ fun RegisterScreen(
 
         CustomButton(
             props = ButtonProps(
-                label = "Registrati",
-                onClick = {
+                label = "Registrati", onClick = {
                     coroutineScope.launch {
                         val check = userViewModel.checkRegisterData()
                         if (check.first) {
@@ -97,6 +100,8 @@ fun RegisterScreen(
                                 val response = ApiService.retrofit.registerUser(newUser)
                                 if (response.isSuccessful) {
                                     snackBarHostState.showSnackbar("Registrazione avvenuta con successo!")
+                                    userViewModel.storeResponse(response.body() as RegisterAndLoginResponse)
+                                    context.startActivity(Intent(context, GameActivity::class.java))
                                 } else {
                                     snackBarHostState.showSnackbar("Errore: ${response.code()} - ${response.message()}")
                                 }
@@ -108,19 +113,15 @@ fun RegisterScreen(
                         }
 
                     }
-                }
-            ),
-            modifier = Modifier.padding(
+                }), modifier = Modifier.padding(
                 top = 15.dp
             )
         )
 
         CustomButton(
             props = ButtonProps(
-                label = "Ho un Account",
-                onClick = onLoginRedirect
-            ),
-            modifier = Modifier.padding(
+                label = "Ho un Account", onClick = onLoginRedirect
+            ), modifier = Modifier.padding(
                 top = 25.dp
             )
         )

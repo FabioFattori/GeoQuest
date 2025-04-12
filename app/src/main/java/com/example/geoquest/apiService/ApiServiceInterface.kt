@@ -1,7 +1,9 @@
 package com.example.geoquest.apiService
 
+import com.example.geoquest.apiService.dto.CheckTokenParams
 import com.example.geoquest.apiService.dto.LoginParams
 import com.example.geoquest.apiService.dto.NewUser
+import com.example.geoquest.apiService.dto.OnlyMessageResponse
 import com.example.geoquest.apiService.dto.RegisterAndLoginResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -13,4 +15,7 @@ interface ApiServiceInterface {
 
     @POST("user/login")
     suspend fun loginUser(@Body user: LoginParams): Response<RegisterAndLoginResponse>
+
+    @POST("user/checkToken")
+    suspend fun checkToken(@Body data: CheckTokenParams): Response<OnlyMessageResponse>
 }

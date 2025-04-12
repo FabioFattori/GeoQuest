@@ -1,5 +1,6 @@
 package com.example.geoquest.ui.screens
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -13,7 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.geoquest.GameActivity
 import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.apiService.dto.LoginParams
 import com.example.geoquest.apiService.dto.RegisterAndLoginResponse
@@ -36,12 +39,14 @@ fun LoginScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
+    val context = LocalContext.current
+
     Column(
         modifier = modifier.padding(20.dp, 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Logo(modifier)
+        Logo()
         Text(
             "Accedi",
             fontSize = getSize(TextType.BigTitle),
@@ -82,6 +87,7 @@ fun LoginScreen(
                                 if (response.isSuccessful) {
                                     snackBarHostState.showSnackbar("Accesso avvenuto con successo!")
                                     userViewModel.storeResponse(response.body() as RegisterAndLoginResponse)
+                                    context.startActivity(Intent(context, GameActivity::class.java))
                                 } else {
                                     snackBarHostState.showSnackbar("Errore: ${response.code()} - ${response.message()}")
                                 }
@@ -101,7 +107,7 @@ fun LoginScreen(
 
         CustomButton(
             props = ButtonProps(
-                label = "Ho un Account",
+                label = "Nuovo Account",
                 onClick = onRegisterRedirect
             ),
             modifier = Modifier.padding(

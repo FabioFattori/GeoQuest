@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.geoquest.ui.screens.HomeScreen
 import com.example.geoquest.ui.screens.LoginScreen
 import com.example.geoquest.ui.screens.RegisterScreen
 
@@ -42,12 +43,10 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier) {
                 )
             }
 
-//        composable(Screens.Home.route) {
-//            HomeScreen(onNavigateToDetail = { id ->
-//                navController.navigate(Screens.Detail.createRoute(id))
-//            }, modifier)
-//        }
-//
+            composable(Screens.Home.route) {
+                HomeScreen(modifier = modifier)
+            }
+
 //        composable(
 //            route = Screens.Detail.route,
 //            arguments = listOf(navArgument("id") { type = NavType.StringType })
@@ -61,29 +60,4 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier) {
         }
     }
 }
-
-//@Composable
-//fun HomeScreen(onNavigateToDetail: (String) -> Unit, modifier: Modifier) {
-//    Column(
-//        modifier = modifier
-//            .fillMaxSize()
-//            .background(getGradient()),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        Text("Home Screen")
-//        Button(onClick = { onNavigateToDetail("IDBABY") }) {
-//            Text("Vai a Dettaglio")
-//        }
-//    }
-//}
-//
-//@Composable
-//fun DetailScreen(onBack: () -> Unit, id: String?, modifier: Modifier) {
-//    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-//        Text("Detail Screen, my man passed up this shit right here => $id")
-//        Button(onClick = onBack) {
-//            Text("Torna indietro")
-//        }
-//    }
-//}
 
