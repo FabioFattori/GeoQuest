@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">GeoQuest</string>
     <string name="title_activity_game">GameActivity</string>
+    <string name="logo">Logo</string>
+    <string name="logo_geoquest">Logo GeoQuest</string>
+    <string name="geoquest">GeoQuest</string>
 </resources>

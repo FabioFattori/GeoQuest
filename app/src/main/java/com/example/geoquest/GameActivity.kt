@@ -6,9 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.geoquest.ui.components.Helmet
 import com.example.geoquest.ui.theme.GeoQuestTheme
+import com.example.geoquest.ui.viewModels.ThemeViewModel
 import com.example.geoquest.utilities.navigation.GameNavigator
 
 class GameActivity : ComponentActivity() {
@@ -16,7 +18,9 @@ class GameActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            GeoQuestTheme {
+            val themeViewModel: ThemeViewModel = viewModel()
+
+            GeoQuestTheme(darkTheme = themeViewModel.isDark.value) {
                 val navController = rememberNavController()
 
                 Helmet(

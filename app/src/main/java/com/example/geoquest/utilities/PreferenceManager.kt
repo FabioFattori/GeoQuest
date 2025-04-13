@@ -27,6 +27,14 @@ object PreferenceManager {
         prefs.edit { remove("auth_token") }
     }
 
+    fun saveTheme(isDarkTheme: Boolean) {
+        prefs.edit { putBoolean("isDarkTheme", isDarkTheme) }
+    }
+
+    fun getTheme(): Boolean {
+        return prefs.getBoolean("isDarkTheme", false)
+    }
+
     fun <T> saveObject(key: String, obj: T) {
         val json = gson.toJson(obj)
         prefs.edit { putString(key, json) }

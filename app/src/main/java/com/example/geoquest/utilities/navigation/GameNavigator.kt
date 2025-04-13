@@ -5,7 +5,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.geoquest.ui.screens.BattleScreen
 import com.example.geoquest.ui.screens.HomeScreen
+import com.example.geoquest.ui.screens.InventoryScreen
+import com.example.geoquest.ui.screens.ProfileScreen
+import com.example.geoquest.ui.screens.SettingsScreen
 
 @Composable
 fun GameNavigator(navController: NavHostController, modifier: Modifier) {
@@ -14,6 +18,22 @@ fun GameNavigator(navController: NavHostController, modifier: Modifier) {
 
         composable(Screens.Home.route) {
             HomeScreen(modifier = modifier)
+        }
+
+        composable(Screens.Profile.route) {
+            ProfileScreen(modifier = modifier)
+        }
+
+        composable(Screens.Settings.route) {
+            SettingsScreen(modifier = modifier)
+        }
+
+        composable(Screens.Battles.route) {
+            BattleScreen(modifier = modifier)
+        }
+
+        composable(Screens.Inventory.route) {
+            InventoryScreen(modifier = modifier)
         }
     }
 }
