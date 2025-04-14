@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,26 +20,22 @@ import com.example.geoquest.ui.viewModels.ThemeViewModel
 import com.example.geoquest.utilities.PreferenceManager
 
 private fun handleThemeChange(selectedOption: String, themeViewModel: ThemeViewModel) {
-    var isDark = false
-    if (selectedOption == "Scuro") {
-        isDark = true
+    val isDark = selectedOption == "Scuro"
+    if (PreferenceManager.getTheme() != isDark) {
+        themeViewModel.toggleTheme()
+        PreferenceManager.saveTheme(isDark)
     }
-
-
-    themeViewModel.toggleTheme()
-
-    PreferenceManager.saveTheme(isDark)
 }
+
 
 @Composable
 fun SettingsScreen(modifier: Modifier) {
 
-    val themeOptions = remember {
-        listOf(
+    val themeOptions = listOf(
             "Chiaro",
             "Scuro",
         )
-    }
+
 
     val themeViewModel: ThemeViewModel = viewModel()
 
@@ -50,7 +45,7 @@ fun SettingsScreen(modifier: Modifier) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.height(70.dp)
+            modifier = Modifier.height(70.dp)
         ) {
             Text("Tema", fontSize = getSize(TextType.Normal), modifier = Modifier.fillMaxHeight())
             Select(

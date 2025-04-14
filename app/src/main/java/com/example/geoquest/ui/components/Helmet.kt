@@ -23,7 +23,6 @@ fun Helmet(
         modifier = modifier,
         topBar = {
             CustomTopAppBar(
-                modifier = Modifier,
                 iconSize = iconSize,
                 navigator = navigator
             )

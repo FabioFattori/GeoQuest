@@ -23,7 +23,7 @@ import com.example.geoquest.utilities.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopAppBar(modifier: Modifier, navigator: NavHostController, iconSize: Dp) {
+fun CustomTopAppBar(navigator: NavHostController, iconSize: Dp) {
     TopAppBar(
         expandedHeight = 120.dp,
         colors = TopAppBarDefaults.topAppBarColors(

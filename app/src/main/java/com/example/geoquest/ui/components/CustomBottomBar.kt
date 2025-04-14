@@ -37,8 +37,8 @@ data class Route(
     val contentDescription: String
 )
 
-private fun GetSelectedBoxStyle(): Modifier {
-    return Modifier
+private fun Modifier.getSelectedBoxStyle(): Modifier {
+    return this
         .size(
             size = 90.dp
         )
@@ -102,9 +102,11 @@ fun CustomBottomBar(
                             }
                         },
                         modifier = (if (route.route == selectedRoute.value) {
-                            GetSelectedBoxStyle().background(
-                                brush = getGradient()
-                            )
+                            Modifier
+                                .getSelectedBoxStyle()
+                                .background(
+                                    brush = getGradient()
+                                )
                         } else {
                             Modifier.size(90.dp)
                         })
