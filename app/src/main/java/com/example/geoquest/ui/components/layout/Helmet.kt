@@ -1,4 +1,4 @@
-package com.example.geoquest.ui.components
+package com.example.geoquest.ui.components.layout
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.geoquest.ui.components.baseComponents.CustomBottomBar
+import com.example.geoquest.ui.components.baseComponents.CustomTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

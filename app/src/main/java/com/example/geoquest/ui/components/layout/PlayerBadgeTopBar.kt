@@ -1,4 +1,4 @@
-package com.example.geoquest.ui.components
+package com.example.geoquest.ui.components.layout
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.R
 import com.example.geoquest.business.models.Player
+import com.example.geoquest.ui.components.baseComponents.IconGradient
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 import com.example.geoquest.utilities.PreferenceManager
@@ -46,7 +47,7 @@ fun PlayerBadgeForTopBar(modifier: Modifier) {
     }
 
     val percMissingExp: Float =
-        ((player.experienceCollected.toFloat() + 50) / player.experienceNeeded).coerceIn(0f, 1f)
+        ((player.experienceCollected.toFloat()) / player.experienceNeeded).coerceIn(0f, 1f)
     val percText = (percMissingExp * 100).roundToInt()
 
     Column(

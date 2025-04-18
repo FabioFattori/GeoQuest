@@ -4,6 +4,7 @@ data class Player(
     val id: Int,
     val name: String,
     val level: Int,
+    val maxLevel: Int,
     val experienceCollected: Int,
     val nWonBattles: Int,
     val nBattles: Int,

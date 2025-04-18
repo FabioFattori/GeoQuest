@@ -1,4 +1,4 @@
-package com.example.geoquest.ui.components
+package com.example.geoquest.ui.components.baseComponents
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width

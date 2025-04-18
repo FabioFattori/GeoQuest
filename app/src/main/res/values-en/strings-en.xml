@@ -21,6 +21,12 @@
     <string name="info">Information!</string>
     <string name="exitText">By proceeding, you will be logged out. Continue?</string>
     <string name="deleteText">By proceeding, you will be logged out and all your data will be deleted. Continue?</string>
-
+    <string name="maxLevel">Max Level Reached</string>
+    <string name="damage">Damage</string>
+    <string name="life">Health</string>
+    <string name="maxLifa">Max Health</string>
+    <string name="winBattles">Won Battles</string>
+    <string name="totalBattles">Fought Battles</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
 
 </resources>

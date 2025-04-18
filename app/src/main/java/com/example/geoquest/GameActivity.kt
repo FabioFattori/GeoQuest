@@ -10,7 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
-import com.example.geoquest.ui.components.Helmet
+import com.example.geoquest.ui.components.layout.Helmet
 import com.example.geoquest.ui.theme.GeoQuestTheme
 import com.example.geoquest.utilities.Languages
 import com.example.geoquest.utilities.LocaleHelper

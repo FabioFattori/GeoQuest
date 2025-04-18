@@ -1,4 +1,4 @@
-package com.example.geoquest.ui.components
+package com.example.geoquest.ui.components.baseComponents
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable

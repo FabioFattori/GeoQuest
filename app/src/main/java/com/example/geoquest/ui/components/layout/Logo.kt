@@ -1,4 +1,4 @@
-package com.example.geoquest.ui.components
+package com.example.geoquest.ui.components.layout
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

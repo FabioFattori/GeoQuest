@@ -63,6 +63,8 @@ dependencies {
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     implementation(libs.androidx.core.splashscreen)
+    implementation("com.mapbox.extension:maps-compose:11.11.0")
+    implementation("com.mapbox.maps:android:11.11.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

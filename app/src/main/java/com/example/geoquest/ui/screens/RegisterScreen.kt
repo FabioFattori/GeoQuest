@@ -22,11 +22,11 @@ import com.example.geoquest.GameActivity
 import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.apiService.dto.NewUser
 import com.example.geoquest.apiService.dto.RegisterAndLoginResponse
-import com.example.geoquest.ui.components.ButtonProps
-import com.example.geoquest.ui.components.CustomButton
-import com.example.geoquest.ui.components.GenericInput
-import com.example.geoquest.ui.components.GenericInputProps
-import com.example.geoquest.ui.components.Logo
+import com.example.geoquest.ui.components.baseComponents.ButtonProps
+import com.example.geoquest.ui.components.baseComponents.CustomButton
+import com.example.geoquest.ui.components.baseComponents.GenericInput
+import com.example.geoquest.ui.components.baseComponents.GenericInputProps
+import com.example.geoquest.ui.components.layout.Logo
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 import com.example.geoquest.ui.viewModels.UserViewModel

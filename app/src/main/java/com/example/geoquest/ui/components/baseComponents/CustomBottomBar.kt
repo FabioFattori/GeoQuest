@@ -1,4 +1,4 @@
-package com.example.geoquest.ui.components
+package com.example.geoquest.ui.components.baseComponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Backpack
@@ -38,10 +39,12 @@ data class Route(
 )
 
 private fun Modifier.getSelectedBoxStyle(): Modifier {
+    val baseSize = 80.dp
+    val paddingBottom = 20.dp
     return this
-        .size(
-            size = 90.dp
-        )
+        .width(baseSize)
+        .height(baseSize + paddingBottom)
+        .padding(bottom = paddingBottom)
         .clip(CircleShape)
 }
 
@@ -80,7 +83,7 @@ fun CustomBottomBar(
         modifier = modifier
             .fillMaxWidth()
             .height(
-                150.dp
+                130.dp
             ),
         containerColor = MaterialTheme.colorScheme.background,
         content = {

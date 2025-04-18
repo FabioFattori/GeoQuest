@@ -20,7 +20,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.apiService.dto.CheckTokenParams
 import com.example.geoquest.business.models.User
-import com.example.geoquest.ui.components.Logo
+import com.example.geoquest.ui.components.layout.Logo
 import com.example.geoquest.ui.theme.GeoQuestTheme
 import com.example.geoquest.utilities.PreferenceManager
 import kotlinx.coroutines.CoroutineScope
@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity() {
             val response = ApiService.retrofit.checkToken(CheckTokenParams(user.email, token))
             response.isSuccessful
         } catch (e: Exception) {
-            Log.d("403", "Not authenticated, token not valid")
+            Log.d("403", "Not authenticated, token not valid, ${e.message}")
             false
         }
     }

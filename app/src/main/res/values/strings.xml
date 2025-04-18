@@ -20,4 +20,11 @@
     <string name="info">Informazione!</string>
     <string name="exitText">Procedendo verrai disconnesso, Procedere?</string>
     <string name="deleteText">Procedendo verrai disconnesso e tutti i tuoi dati verrano cancellati, Procedere?</string>
+    <string name="maxLevel">Livello Massimo Raggiunto</string>
+    <string name="damage">Danno</string>
+    <string name="life">Vitalità</string>
+    <string name="maxLifa">Vitalità Massima</string>
+    <string name="winBattles">Battaglie Vinte</string>
+    <string name="totalBattles">Battaglie Totali</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
 </resources>
