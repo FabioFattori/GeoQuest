@@ -1,6 +1,7 @@
 package com.example.geoquest.utilities.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,7 +13,12 @@ import com.example.geoquest.ui.screens.ProfileScreen
 import com.example.geoquest.ui.screens.SettingsScreen
 
 @Composable
-fun GameNavigator(navController: NavHostController, modifier: Modifier) {
+fun GameNavigator(
+    navController: NavHostController,
+    modifier: Modifier,
+    isDark: MutableState<Boolean>,
+    currentLanguage: MutableState<String>
+) {
 
     NavHost(navController = navController, startDestination = "home") {
 
@@ -25,7 +31,11 @@ fun GameNavigator(navController: NavHostController, modifier: Modifier) {
         }
 
         composable(Screens.Settings.route) {
-            SettingsScreen(modifier = modifier)
+            SettingsScreen(
+                modifier = modifier,
+                isDark = isDark,
+                currentLanguage = currentLanguage
+            )
         }
 
         composable(Screens.Battles.route) {

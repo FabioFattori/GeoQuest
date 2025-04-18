@@ -1,11 +1,16 @@
 package com.example.geoquest.ui.theme
 
+import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = whiteText, // white text
@@ -40,6 +45,20 @@ fun GeoQuestTheme(
     val colorScheme = when {
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
+    }
+
+    val view = LocalView.current
+    // Salta l'operazione se stiamo visualizzando il componente tramite dei devtools (es. preview)
+    if (!view.isInEditMode) {
+        SideEffect { // Esegue il blocco al termine di ogni recomposition
+            val window = (view.context as Activity).window
+            // Cambio del colore della status bar per Android <= 14
+            window.statusBarColor = colorScheme.primaryContainer.toArgb()
+            // Cambio del colore della status bar per Android 15+
+            WindowCompat
+                .getInsetsController(window, view)
+                .isAppearanceLightStatusBars = !darkTheme
+        }
     }
 
     MaterialTheme(

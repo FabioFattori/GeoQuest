@@ -35,6 +35,14 @@ object PreferenceManager {
         return prefs.getBoolean("isDarkTheme", false)
     }
 
+    fun saveLanguage(language: Languages) {
+        prefs.edit { putString("language", language.code) }
+    }
+
+    fun getLanguage(): String {
+        return prefs.getString("language", Languages.ITALIAN.code)!!
+    }
+
     fun <T> saveObject(key: String, obj: T) {
         val json = gson.toJson(obj)
         prefs.edit { putString(key, json) }
@@ -47,5 +55,13 @@ object PreferenceManager {
 
     fun clearObject(key: String) {
         prefs.edit { remove(key) }
+    }
+
+    fun clearAll() {
+        this.clearToken()
+        clearObject("user")
+        clearObject("player")
+        clearObject("isDarkTheme")
+        clearObject("language")
     }
 }

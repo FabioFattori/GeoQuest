@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -12,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getGradient
@@ -22,15 +24,24 @@ data class ButtonProps(
     val onClick: () -> Unit,
 )
 
+enum class ButtonShapes(val shape: Shape) {
+    Circle(CircleShape),
+    RoundedRect(RoundedCornerShape(10.dp))
+}
+
 @Composable
-fun CustomButton(props: ButtonProps, modifier: Modifier = Modifier) {
+fun CustomButton(
+    props: ButtonProps,
+    modifier: Modifier = Modifier,
+    buttonShape: ButtonShapes = ButtonShapes.Circle
+) {
 
     Box(
         modifier = modifier
     ) {
         Button(
             modifier = Modifier
-                .clip(CircleShape)
+                .clip(buttonShape.shape)
                 .background(getGradient()),
             colors = ButtonDefaults.buttonColors(Color.Transparent),
             onClick = props.onClick,

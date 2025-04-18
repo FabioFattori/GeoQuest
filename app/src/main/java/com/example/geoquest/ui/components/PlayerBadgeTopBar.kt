@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -82,7 +83,7 @@ fun PlayerBadgeForTopBar(modifier: Modifier) {
             )
 
             Text(
-                text = "Livello ${player.level}",
+                text = "${stringResource(R.string.level)} ${player.level}",
                 fontSize = getSize(TextType.ButtonText),
                 fontWeight = FontWeight.Bold
             )

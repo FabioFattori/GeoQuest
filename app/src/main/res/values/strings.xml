@@ -4,4 +4,20 @@
     <string name="logo">Logo</string>
     <string name="logo_geoquest">Logo GeoQuest</string>
     <string name="geoquest">GeoQuest</string>
+    <string name="settings_title">Impostazioni</string>
+    <string name="change_language">Lingua</string>
+    <string name="change_theme">Tema</string>
+    <string name="light_theme">Chiaro</string>
+    <string name="dark_theme">Scuro</string>
+    <string name="it">Italiano</string>
+    <string name="en">English</string>
+    <string name="level">Livello</string>
+    <string name="exit">Esci</string>
+    <string name="deleteData">Elimina i miei Dati</string>
+    <string name="yes">Si</string>
+    <string name="back">Indietro</string>
+    <string name="warning">Attenzione!</string>
+    <string name="info">Informazione!</string>
+    <string name="exitText">Procedendo verrai disconnesso, Procedere?</string>
+    <string name="deleteText">Procedendo verrai disconnesso e tutti i tuoi dati verrano cancellati, Procedere?</string>
 </resources>

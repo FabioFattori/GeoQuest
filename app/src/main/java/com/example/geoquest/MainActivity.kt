@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                 val nextActivity = if (isValid) {
                     GameActivity::class.java
                 } else {
-                    PreferenceManager.clearToken()
+                    PreferenceManager.clearAll()
                     LoginActivity::class.java
                 }
 
