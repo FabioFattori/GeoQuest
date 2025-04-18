@@ -7,7 +7,7 @@ import com.example.geoquest.utilities.PreferenceManager
 class LanguageViewModel : ViewModel() {
     private val _currentLang = mutableStateOf(PreferenceManager.getLanguage())
     val currentLang: String
-        get() = _currentLang.value!!
+        get() = _currentLang.value
 
     fun toggleLanguage() {
         _currentLang.value = if (_currentLang.value == "it") "en" else "it"

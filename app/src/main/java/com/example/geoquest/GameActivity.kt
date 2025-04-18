@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
@@ -13,14 +12,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
 import com.example.geoquest.ui.components.Helmet
 import com.example.geoquest.ui.theme.GeoQuestTheme
-import com.example.geoquest.ui.viewModels.LanguageViewModel
 import com.example.geoquest.utilities.Languages
 import com.example.geoquest.utilities.LocaleHelper
 import com.example.geoquest.utilities.PreferenceManager
 import com.example.geoquest.utilities.navigation.GameNavigator
 
 class GameActivity : ComponentActivity() {
-    private val languageViewModel by viewModels<LanguageViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

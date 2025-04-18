@@ -2,6 +2,7 @@ package com.example.geoquest
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -30,7 +31,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+        installSplashScreen()
 
         super.onCreate(savedInstanceState)
 
@@ -84,6 +85,7 @@ class MainActivity : ComponentActivity() {
             val response = ApiService.retrofit.checkToken(CheckTokenParams(user.email, token))
             response.isSuccessful
         } catch (e: Exception) {
+            Log.d("403", "Not authenticated, token not valid")
             false
         }
     }
