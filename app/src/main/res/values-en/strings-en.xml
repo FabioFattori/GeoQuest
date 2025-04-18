@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">GeoQuest</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="logo">Logo</string>
@@ -27,6 +27,6 @@
     <string name="maxLifa">Max Health</string>
     <string name="winBattles">Won Battles</string>
     <string name="totalBattles">Fought Battles</string>
-    <string name="mapbox_access_token">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
+    <string name="mapbox_access_token" tools:ignore="Typos">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
 
 </resources>
