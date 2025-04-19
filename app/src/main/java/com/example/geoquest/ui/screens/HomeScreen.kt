@@ -49,13 +49,14 @@ fun HomeScreen(modifier: Modifier) {
     } else {
 
         val playerPosition = remember { mutableStateOf<Position?>(null) }
-
+        val isLoading = remember { pointViewModel.arePOIsLoading }
+        val lst = remember { pointViewModel.poiList }
         LaunchedEffect(Unit) {
             if (PermissionsManager.areLocationPermissionsGranted(context)) {
                 try {
                     getCurrentPlayerLocation(context) { position ->
-                        playerPosition.value = position
                         pointViewModel.fetchPoi(position.lat, position.lon)
+                        playerPosition.value = position
                     }
                 } catch (e: SecurityException) {
                     e.printStackTrace()
@@ -63,15 +64,20 @@ fun HomeScreen(modifier: Modifier) {
             }
         }
 
-        playerPosition.value?.let { position ->
+        val position = playerPosition.value
+
+        if (!isLoading.value && position != null) {
             MapDrawer(
                 modifier = modifier,
                 playerPosition = position,
-                poiList = pointViewModel.poiList.value
+                poiList = lst.value
             )
-        } ?: Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator()
+        } else {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
         }
+
     }
 
 }

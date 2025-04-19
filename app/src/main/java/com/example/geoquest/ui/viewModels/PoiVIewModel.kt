@@ -13,8 +13,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class PoiVIewModel : ViewModel() {
     private val _poiList = mutableStateOf<List<DayPointOfInterest>>(emptyList())
     val poiList: State<List<DayPointOfInterest>> = _poiList
+    val arePOIsLoading = mutableStateOf(true)
 
     fun fetchPoi(lat: Double, lon: Double) {
+        arePOIsLoading.value = true
         viewModelScope.launch {
             try {
                 val query = """
@@ -37,10 +39,13 @@ class PoiVIewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val data = response.body()
                     _poiList.value = data?.elements?.map { it.toDayPoi() } ?: emptyList()
+                    arePOIsLoading.value = false
                 }
             } catch (e: Exception) {
                 // Handle error
                 e.printStackTrace()
+
+                arePOIsLoading.value = false
             }
         }
     }

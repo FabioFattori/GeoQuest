@@ -1,14 +1,19 @@
 package com.example.geoquest.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import com.example.geoquest.R
 import com.example.geoquest.business.classes.DayPointOfInterest
 import com.example.geoquest.business.classes.Position
 import com.mapbox.geojson.Point
 import com.mapbox.maps.extension.compose.MapEffect
 import com.mapbox.maps.extension.compose.MapboxMap
 import com.mapbox.maps.extension.compose.animation.viewport.rememberMapViewportState
+import com.mapbox.maps.extension.compose.annotation.generated.PointAnnotation
+import com.mapbox.maps.extension.compose.annotation.rememberIconImage
 import com.mapbox.maps.plugin.PuckBearing
 import com.mapbox.maps.plugin.locationcomponent.createDefault2DPuck
 import com.mapbox.maps.plugin.locationcomponent.location
@@ -29,6 +34,7 @@ fun MapDrawer(modifier: Modifier, playerPosition: Position, poiList: List<DayPoi
         modifier = modifier.fillMaxSize(),
         mapViewportState = viewportState,
     ) {
+        // player
         MapEffect(Unit) { mapView ->
             mapView.location.updateSettings {
                 locationPuck = createDefault2DPuck(withBearing = true)
@@ -40,46 +46,23 @@ fun MapDrawer(modifier: Modifier, playerPosition: Position, poiList: List<DayPoi
             viewportState.transitionToFollowPuckState()
         }
 
+        // POIs
+        for (poi in poiList) {
+
+            val marker = rememberIconImage(
+                key = R.drawable.award_star_24px,
+                painter = painterResource(R.drawable.award_star_24px)
+            )
+            PointAnnotation(
+                point = Point.fromLngLat(poi.position.lon, poi.position.lat),
+            ) {
+                iconImage = marker
+                interactionsState.onClicked {
+                    Log.d("MapDrawer", "Clicked on POI: ${poi.name} with category: ${poi.category}")
+                    true
+                }
+            }
+        }
+
     }
 }
-
-//
-//@Composable
-//fun PoiMarkers(pois: List<DayPointOfInterest>) {
-//    pois.forEach { poi ->
-//        MapAnnotation(
-//            point = Point.fromLngLat(poi.lon, poi.lat),
-//            content = {
-//                val iconRes = when (poi.category) {
-//                    "museum" -> R.drawable.ic_museum
-//                    "monument" -> R.drawable.ic_monument
-//                    "artwork" -> R.drawable.ic_art
-//                    "park" -> R.drawable.ic_park
-//                    else -> R.drawable.ic_default_poi
-//                }
-//
-//                Icon(
-//                    painter = painterResource(id = iconRes),
-//                    contentDescription = poi.name,
-//                    tint = Color.Unspecified,
-//                    modifier = Modifier.size(32.dp)
-//                )
-//            }
-//        )
-//    }
-//}
-//
-//@Composable
-//fun PlayerMarker(position: Position) {
-//    MapAnnotation(
-//        point = Point.fromLngLat(position.lon, position.lat),
-//        content = {
-//            Icon(
-//                painter = painterResource(id = R.drawable.ic_player), // metti la tua icona
-//                contentDescription = "Player",
-//                tint = Color.Unspecified,
-//                modifier = Modifier.size(48.dp)
-//            )
-//        }
-//    )
-//}
