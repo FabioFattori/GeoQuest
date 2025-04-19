@@ -20,6 +20,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "BASE_URL", "\"http://192.168.10.109:81/api/\"")
+        buildConfigField("String", "POI_API", "\"https://overpass-api.de/api/\"")
+
     }
 
     buildFeatures {
@@ -64,8 +66,10 @@ dependencies {
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.maps.compose)
     implementation(libs.android)
+    implementation(libs.play.services.location)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

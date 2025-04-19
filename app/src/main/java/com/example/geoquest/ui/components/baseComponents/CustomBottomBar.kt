@@ -18,7 +18,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +27,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.geoquest.R
 import com.example.geoquest.ui.theme.getGradient
 import com.example.geoquest.utilities.navigation.Screens
@@ -55,7 +55,6 @@ fun CustomBottomBar(
 ) {
 
     val battleIcon = ImageVector.vectorResource(id = R.drawable.swords_24px)
-    var selectedRoute = remember { mutableStateOf(Screens.Home.route) }
 
     val routes = remember {
         listOf<Route>(
@@ -75,6 +74,11 @@ fun CustomBottomBar(
                 contentDescription = "Inventory"
             ),
         )
+    }
+    val navBackStackEntry = navigator.currentBackStackEntryAsState()
+    var currentRoute = navBackStackEntry.value?.destination?.route
+    if (currentRoute == null) {
+        currentRoute = Screens.Home.route
     }
 
     val iconSize: Dp = 60.dp
@@ -99,12 +103,11 @@ fun CustomBottomBar(
                 for (route in routes) {
                     IconButton(
                         onClick = {
-                            selectedRoute.value = route.route
                             navigator.navigate(route.route) {
                                 popUpTo(Screens.Home.route) { inclusive = true }
                             }
                         },
-                        modifier = (if (route.route == selectedRoute.value) {
+                        modifier = (if (route.route == currentRoute) {
                             Modifier
                                 .getSelectedBoxStyle()
                                 .background(
@@ -119,7 +122,7 @@ fun CustomBottomBar(
                             contentDescription = route.contentDescription,
                             modifier = Modifier
                                 .size(iconSize),
-                            tint = if (selectedRoute.value == route.route) {
+                            tint = if (currentRoute == route.route) {
                                 MaterialTheme.colorScheme.background
                             } else {
                                 MaterialTheme.colorScheme.primary

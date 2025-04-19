@@ -6,6 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiService {
     private const val BASE_URL: String = BuildConfig.BASE_URL
+    private const val POI_BASE_URL: String = BuildConfig.POI_API
 
     val retrofit: ApiServiceInterface by lazy {
         Retrofit.Builder()
@@ -13,5 +14,13 @@ object ApiService {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiServiceInterface::class.java)
+    }
+
+    val poiApi: POIApiServiceInterface by lazy {
+        Retrofit.Builder()
+            .baseUrl(POI_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(POIApiServiceInterface::class.java)
     }
 }

@@ -28,5 +28,7 @@
     <string name="winBattles">Won Battles</string>
     <string name="totalBattles">Fought Battles</string>
     <string name="mapbox_access_token" tools:ignore="Typos">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
+    <string name="NoLocationPermission">This feature only works by accepting the location permission</string>
+    <string name="LoadingLocation">Loading the location, please wait...</string>
 
 </resources>

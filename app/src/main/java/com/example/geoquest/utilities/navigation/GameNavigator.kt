@@ -22,7 +22,9 @@ fun GameNavigator(
 
     NavHost(navController = navController, startDestination = "home") {
 
-        composable(Screens.Home.route) {
+
+        composable(Screens.Home.route)
+        {
             HomeScreen(modifier = modifier)
         }
 
