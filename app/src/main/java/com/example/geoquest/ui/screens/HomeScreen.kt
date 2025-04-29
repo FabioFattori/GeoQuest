@@ -1,6 +1,5 @@
 package com.example.geoquest.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,10 +9,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,22 +27,15 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.R
-import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.business.classes.Position
 import com.example.geoquest.ui.components.MapDrawer
-import com.example.geoquest.ui.components.POIDialog
-import com.example.geoquest.ui.components.baseComponents.DialogMode
 import com.example.geoquest.ui.components.baseComponents.IconGradient
-import com.example.geoquest.ui.components.baseComponents.SimpleDialog
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 import com.example.geoquest.ui.viewModels.PoiVIewModel
 import com.example.geoquest.utilities.getCurrentPlayerLocation
 import com.mapbox.android.core.permissions.PermissionsManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(modifier: Modifier, goToQuests: () -> Unit) {

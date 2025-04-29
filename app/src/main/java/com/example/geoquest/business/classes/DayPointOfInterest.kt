@@ -1,7 +1,5 @@
 package com.example.geoquest.business.classes
 
-import kotlin.math.abs
-import kotlin.math.atan
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow

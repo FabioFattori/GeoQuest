@@ -9,7 +9,6 @@ import com.example.geoquest.apiService.dto.requests.CreateRandomItemRequest
 import com.example.geoquest.business.models.Player
 import com.example.geoquest.business.models.UsableItem
 import com.example.geoquest.utilities.PreferenceManager
-import com.mapbox.maps.PlaybackFinished
 import kotlinx.coroutines.launch
 
 enum class GenerateType {
