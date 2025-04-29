@@ -44,7 +44,9 @@ fun LogRegisterNavigator(navController: NavHostController, modifier: Modifier) {
             }
 
             composable(Screens.Home.route) {
-                HomeScreen(modifier = modifier)
+                HomeScreen(
+                    modifier = modifier,
+                    goToQuests = { navController.navigate(Screens.Quests.route) })
             }
 
 //        composable(

@@ -54,7 +54,7 @@ class GameActivity : ComponentActivity(), PermissionsListener {
     }
 
     override fun onExplanationNeeded(permissionsToExplain: List<String>) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onPermissionResult(granted: Boolean) {

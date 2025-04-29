@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.geoquest.apiService.ApiService
-import com.example.geoquest.apiService.dto.CheckTokenParams
+import com.example.geoquest.apiService.dto.requests.CheckTokenParams
 import com.example.geoquest.business.models.User
 import com.example.geoquest.ui.components.layout.Logo
 import com.example.geoquest.ui.theme.GeoQuestTheme

@@ -15,8 +15,10 @@ class PoiVIewModel : ViewModel() {
     val poiList: State<List<DayPointOfInterest>> = _poiList
     val arePOIsLoading = mutableStateOf(true)
 
-    fun fetchPoi(lat: Double, lon: Double) {
-        arePOIsLoading.value = true
+    fun fetchPoi(lat: Double, lon: Double, needToLoad: Boolean = true) {
+        if (needToLoad) {
+            arePOIsLoading.value = true
+        }
         viewModelScope.launch {
             try {
                 val query = """

@@ -10,6 +10,7 @@ import com.example.geoquest.ui.screens.BattleScreen
 import com.example.geoquest.ui.screens.HomeScreen
 import com.example.geoquest.ui.screens.InventoryScreen
 import com.example.geoquest.ui.screens.ProfileScreen
+import com.example.geoquest.ui.screens.QuestScreen
 import com.example.geoquest.ui.screens.SettingsScreen
 
 @Composable
@@ -25,7 +26,9 @@ fun GameNavigator(
 
         composable(Screens.Home.route)
         {
-            HomeScreen(modifier = modifier)
+            HomeScreen(modifier = modifier, goToQuests = {
+                navController.navigate(Screens.Quests.route)
+            })
         }
 
         composable(Screens.Profile.route) {
@@ -46,6 +49,10 @@ fun GameNavigator(
 
         composable(Screens.Inventory.route) {
             InventoryScreen(modifier = modifier)
+        }
+
+        composable(Screens.Quests.route) {
+            QuestScreen(modifier = modifier)
         }
     }
 }

@@ -1,10 +1,12 @@
 package com.example.geoquest.apiService
 
-import com.example.geoquest.apiService.dto.CheckTokenParams
-import com.example.geoquest.apiService.dto.LoginParams
-import com.example.geoquest.apiService.dto.NewUser
-import com.example.geoquest.apiService.dto.OnlyMessageResponse
-import com.example.geoquest.apiService.dto.RegisterAndLoginResponse
+import com.example.geoquest.apiService.dto.requests.CheckTokenParams
+import com.example.geoquest.apiService.dto.requests.LoginParams
+import com.example.geoquest.apiService.dto.requests.NewUser
+import com.example.geoquest.apiService.dto.requests.CreateRandomItemRequest
+import com.example.geoquest.apiService.dto.responses.OnlyMessageResponse
+import com.example.geoquest.apiService.dto.responses.RandomUsableItemResponse
+import com.example.geoquest.apiService.dto.responses.RegisterAndLoginResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -26,4 +28,7 @@ interface ApiServiceInterface {
 
     @DELETE("user/{id}")
     suspend fun deleteUser(@Path("id") userId: Int): Response<OnlyMessageResponse>
+
+    @POST("usableItems/createRandomUsableItem")
+    suspend fun createRandomUsableItem(@Body data: CreateRandomItemRequest): Response<RandomUsableItemResponse>
 }

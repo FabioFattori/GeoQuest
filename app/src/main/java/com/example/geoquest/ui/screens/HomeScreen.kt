@@ -1,11 +1,20 @@
 package com.example.geoquest.ui.screens
 
+import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,21 +22,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.R
+import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.business.classes.Position
 import com.example.geoquest.ui.components.MapDrawer
+import com.example.geoquest.ui.components.POIDialog
+import com.example.geoquest.ui.components.baseComponents.DialogMode
+import com.example.geoquest.ui.components.baseComponents.IconGradient
+import com.example.geoquest.ui.components.baseComponents.SimpleDialog
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 import com.example.geoquest.ui.viewModels.PoiVIewModel
 import com.example.geoquest.utilities.getCurrentPlayerLocation
 import com.mapbox.android.core.permissions.PermissionsManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
-fun HomeScreen(modifier: Modifier) {
+fun HomeScreen(modifier: Modifier, goToQuests: () -> Unit) {
     val pointViewModel = PoiVIewModel()
     val context = LocalContext.current
 
@@ -52,26 +73,61 @@ fun HomeScreen(modifier: Modifier) {
         val isLoading = remember { pointViewModel.arePOIsLoading }
         val lst = remember { pointViewModel.poiList }
         LaunchedEffect(Unit) {
-            if (PermissionsManager.areLocationPermissionsGranted(context)) {
-                try {
-                    getCurrentPlayerLocation(context) { position ->
-                        pointViewModel.fetchPoi(position.lat, position.lon)
-                        playerPosition.value = position
+            var needToLoad = true
+            while (true) {
+                if (PermissionsManager.areLocationPermissionsGranted(context)) {
+                    try {
+                        getCurrentPlayerLocation(context) { position ->
+                            pointViewModel.fetchPoi(
+                                position.lat,
+                                position.lon,
+                                needToLoad = needToLoad
+                            )
+                            playerPosition.value = position
+                        }
+                    } catch (e: SecurityException) {
+                        e.printStackTrace()
                     }
-                } catch (e: SecurityException) {
-                    e.printStackTrace()
                 }
+                needToLoad = false
+                delay(10_000L)
             }
         }
+
 
         val position = playerPosition.value
 
         if (!isLoading.value && position != null) {
-            MapDrawer(
-                modifier = modifier,
-                playerPosition = position,
-                poiList = lst.value
-            )
+
+
+            // the box doesn't let the map visualize correctly
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+            ) {
+                MapDrawer(
+                    modifier = modifier,
+                    playerPosition = position,
+                    poiList = lst.value
+                )
+                FloatingActionButton(
+                    onClick = goToQuests,
+                    modifier = Modifier
+                        .offset(x = 340.dp, y = 20.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.background),
+                    containerColor = MaterialTheme.colorScheme.background
+                ) {
+                    IconGradient(
+                        icon = ImageVector.vectorResource(id = R.drawable.menu_book),
+                        contentDescription = "",
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+            }
+
+
         } else {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
@@ -79,5 +135,4 @@ fun HomeScreen(modifier: Modifier) {
         }
 
     }
-
 }

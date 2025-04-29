@@ -66,11 +66,18 @@ fun GeoQuestTheme(
 }
 
 @Composable
-fun getGradient(): Brush {
-    val steps = arrayOf(
-        0.0f to MaterialTheme.colorScheme.surface,
-        1f to MaterialTheme.colorScheme.surfaceVariant
-    )
+fun getGradient(isEnabled: Boolean = true): Brush {
+    val steps = if (isEnabled) {
+        arrayOf(
+            0.0f to MaterialTheme.colorScheme.surface,
+            1f to MaterialTheme.colorScheme.surfaceVariant
+        )
+    } else {
+        arrayOf(
+            0.0f to MaterialTheme.colorScheme.surface.copy(alpha = 0.1f),
+            1f to MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.05f)
+        )
+    }
 
     return Brush.verticalGradient(
         colorStops = steps

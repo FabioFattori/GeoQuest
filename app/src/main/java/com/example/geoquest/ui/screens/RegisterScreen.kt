@@ -20,8 +20,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.GameActivity
 import com.example.geoquest.apiService.ApiService
-import com.example.geoquest.apiService.dto.NewUser
-import com.example.geoquest.apiService.dto.RegisterAndLoginResponse
+import com.example.geoquest.apiService.dto.requests.NewUser
+import com.example.geoquest.apiService.dto.responses.RegisterAndLoginResponse
 import com.example.geoquest.ui.components.baseComponents.ButtonProps
 import com.example.geoquest.ui.components.baseComponents.CustomButton
 import com.example.geoquest.ui.components.baseComponents.GenericInput

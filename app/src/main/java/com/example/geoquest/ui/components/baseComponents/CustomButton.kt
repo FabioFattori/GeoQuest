@@ -22,6 +22,7 @@ import com.example.geoquest.ui.theme.getSize
 data class ButtonProps(
     val label: String,
     val onClick: () -> Unit,
+    val isEnabled: Boolean = true,
 )
 
 enum class ButtonShapes(val shape: Shape) {
@@ -42,9 +43,10 @@ fun CustomButton(
         Button(
             modifier = Modifier
                 .clip(buttonShape.shape)
-                .background(getGradient()),
+                .background(getGradient(props.isEnabled)),
             colors = ButtonDefaults.buttonColors(Color.Transparent),
             onClick = props.onClick,
+            enabled = props.isEnabled
         ) {
             Box(
                 modifier = Modifier

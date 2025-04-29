@@ -29,4 +29,12 @@
     <string name="mapbox_access_token">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
     <string name="NoLocationPermission">Questa funzionalità funziona solo accettando il permesso di location</string>
     <string name="LoadingLocation">Caricamento della posizione, attendere...</string>
+    <string name="questByFoot">Gambe in Spalle!</string>
+    <string name="Simple">Facile</string>
+    <string name="Normal">Normale</string>
+    <string name="Hard">Difficile</string>
+    <string name="Impossible">Impossibile</string>
+    <string name="playerNotNextPOI">Sei troppo lontano dal punto di interesse! Avvicinati per riscatttare la riconpensa!</string>
+    <string name="playerNextPOI">Puoi riscattare la ricompensa casuale del punto d\'interesse!</string>
+    <string name="get">Ottieni</string>
 </resources>

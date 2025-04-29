@@ -2,7 +2,7 @@ package com.example.geoquest.ui.viewModels
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.geoquest.apiService.dto.RegisterAndLoginResponse
+import com.example.geoquest.apiService.dto.responses.RegisterAndLoginResponse
 import com.example.geoquest.utilities.PreferenceManager
 
 class UserViewModel() : ViewModel() {

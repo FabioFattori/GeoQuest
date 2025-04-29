@@ -30,5 +30,13 @@
     <string name="mapbox_access_token" tools:ignore="Typos">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
     <string name="NoLocationPermission">This feature only works by accepting the location permission</string>
     <string name="LoadingLocation">Loading the location, please wait…</string>
+    <string name="questByFoot">Saddle Up!</string>
+    <string name="Simple">Easy</string>
+    <string name="Normal">Normal</string>
+    <string name="Hard">Hard</string>
+    <string name="Impossible">Impossible</string>
+    <string name="playerNotNextPOI">You are to distant from the Point of Interest! Get close to collect the reward!</string>
+    <string name="playerNextPOI">You can collect the random reward from the Point of Interest!</string>
+    <string name="get">Get</string>
 
 </resources>

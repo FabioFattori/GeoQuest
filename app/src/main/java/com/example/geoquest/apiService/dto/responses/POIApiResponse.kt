@@ -1,4 +1,4 @@
-package com.example.geoquest.apiService.dto
+package com.example.geoquest.apiService.dto.responses
 
 import com.example.geoquest.business.classes.DayPointOfInterest
 import com.example.geoquest.business.classes.Position
