@@ -94,6 +94,7 @@ fun MapDrawer(modifier: Modifier, playerPosition: Position, poiList: List<DayPoi
                 onConfirmation = {
                     randomRewardViewModel.clearGeneratedUsableItem()
                     loadedValue.value = null
+                    isLoading.value = false
                 },
                 image = {
                     val images = ImagesResolver.associateDbImagesToPossibleImages()

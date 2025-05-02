@@ -26,7 +26,7 @@ data class DayPointOfInterest(
         return R * c
     }
 
-    fun isNearPlayer(playerPosition: Position, toleranceInMeters: Int = 10): Boolean {
+    fun isNearPlayer(playerPosition: Position, toleranceInMeters: Int = 20): Boolean {
         val distance = haversineDistance(this.position, playerPosition)
         return distance <= toleranceInMeters
     }

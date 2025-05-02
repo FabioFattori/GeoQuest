@@ -52,7 +52,7 @@ abstract class ImagesResolver {
             Image(
                 painter = painter,
                 contentDescription = null,
-                modifier = Modifier.size(150.dp)
+                modifier = Modifier.size(120.dp)
             )
         }
     }

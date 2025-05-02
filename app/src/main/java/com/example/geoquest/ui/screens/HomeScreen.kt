@@ -80,7 +80,7 @@ fun HomeScreen(modifier: Modifier, goToQuests: () -> Unit) {
                     }
                 }
                 needToLoad = false
-                delay(10_000L)
+                delay(5_000L)
             }
         }
 

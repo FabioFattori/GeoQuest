@@ -10,9 +10,13 @@ data class Player(
     val nBattles: Int,
     val currentHealth: Int,
     val experienceNeeded: Int,
+    val experienceToLevelUp: Int,
     val damage: Int,
     val maxHealth: Int,
     val helmetId: Int?,
+    val helmet: EquippableItem,
     val weaponId: Int?,
+    val weapon: EquippableItem,
     val runeId: Int?,
+    val rune: EquippableItem,
 )

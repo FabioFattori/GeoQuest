@@ -1,6 +1,7 @@
 package com.example.geoquest.ui.components.baseComponents
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -13,10 +14,16 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+class SingleItemConfiguration{
+    companion object{
+        val size = 100.dp
+    }
+}
+
 @Composable
 fun SingleItem(
     modifier: Modifier,
-    rarity: Color,
+    rarity: Color?,
     image: @Composable () -> Unit,
     clickable: Boolean,
     onClick: () -> Unit = {}
@@ -24,19 +31,23 @@ fun SingleItem(
 
     Box(
         modifier = modifier
-            .size(100.dp)
+            .size(SingleItemConfiguration.size)
             .background(
-                brush = Brush.radialGradient(
-                    colors = listOf(
-                        rarity,
-                        MaterialTheme.colorScheme.surface
+                    brush = Brush.radialGradient(
+                        colors = listOf(
+                            rarity ?: MaterialTheme.colorScheme.tertiary, // centro
+                            MaterialTheme.colorScheme.tertiary // bordi
+                        ),
+                        center = Offset(0.5f, 0.5f), // percentuale rispetto al contenitore
+                        radius = Float.POSITIVE_INFINITY // si adatta al contenitore
                     ),
-                    center = Offset(50f, 50f),
-                    radius = 120f
-                ),
                 shape = RoundedCornerShape(18.dp)
             )
-            .background(MaterialTheme.colorScheme.tertiary)
+            .border(
+                width = 5.dp,
+                color = MaterialTheme.colorScheme.primary,
+                shape = RoundedCornerShape(16.dp)
+            )
             .clickable(enabled = clickable) {
                 onClick()
             }

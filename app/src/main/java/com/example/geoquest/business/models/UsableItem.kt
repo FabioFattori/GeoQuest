@@ -16,5 +16,5 @@ data class UsableItem(
     val createdAt: Date,
     @SerializedName("updated_at")
     val updatedAt: Date,
-)
+) : InventoryItem
 

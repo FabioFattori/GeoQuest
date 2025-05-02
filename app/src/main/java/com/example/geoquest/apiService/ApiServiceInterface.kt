@@ -7,11 +7,15 @@ import com.example.geoquest.apiService.dto.requests.CreateRandomItemRequest
 import com.example.geoquest.apiService.dto.responses.OnlyMessageResponse
 import com.example.geoquest.apiService.dto.responses.RandomUsableItemResponse
 import com.example.geoquest.apiService.dto.responses.RegisterAndLoginResponse
+import com.example.geoquest.business.models.EquippableItem
+import com.example.geoquest.business.models.UsableItem
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiServiceInterface {
     @POST("user")
@@ -31,4 +35,13 @@ interface ApiServiceInterface {
 
     @POST("usableItems/createRandomUsableItem")
     suspend fun createRandomUsableItem(@Body data: CreateRandomItemRequest): Response<RandomUsableItemResponse>
+
+    @GET("usableItems/getUsableItemsOfUser")
+    suspend fun getUsableItemInventory(@Query("ownerId") userId: Int) : Response<List<UsableItem>>
+
+    @GET("equippableItems/getInventory")
+    suspend fun getInventory(
+        @Query("ownerId") ownerId: Int,
+        @Query("type") type: Int
+    ) : Response<List<EquippableItem>>
 }

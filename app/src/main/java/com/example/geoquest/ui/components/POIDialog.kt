@@ -30,9 +30,9 @@ fun POIDialog(
     poi: DayPointOfInterest,
     playerPosition: Position
 ) {
-
+    val isNear = poi.isNearPlayer(playerPosition = playerPosition)
     val contentString =
-        if (poi.isNearPlayer(playerPosition = playerPosition)) stringResource(R.string.playerNextPOI) else stringResource(
+        if (isNear) stringResource(R.string.playerNextPOI) else stringResource(
             R.string.playerNotNextPOI
         )
     val backString = stringResource(R.string.back)
@@ -74,7 +74,7 @@ fun POIDialog(
                     props = ButtonProps(
                         label = getString,
                         onClick = onConfirmation,
-                        isEnabled = poi.isNearPlayer(playerPosition = playerPosition)
+                        isEnabled = isNear
                     ),
                     modifier = Modifier.padding(8.dp),
                 )

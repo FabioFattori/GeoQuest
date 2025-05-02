@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 
 val whiteText = Color(0xFFE6F1F8)
 val orangeYellow = Color(0xFFFDD391)
-val bgForItemsDarkTheme = Color(0xFFE6F1F8)
+val bgForItemsDarkTheme = Color(0xFFE6F1F8).copy(0.65f)
 val bgDark = Color(0xFF010916)
 val inputBgDark = Color(0xFFE6F1F8).copy(0.7f)
 val orangeForGradient = Color(0xFF9F2E52)
