@@ -20,10 +20,10 @@ fun InventoryGrid(items: List<InventoryItem>) {
     ) {
         items(items) { item ->
             val color: Color
-            var imageIndex: String = ""
+            var imageIndex = ""
             if (item is EquippableItem) {
                 color = item.rarity.getColor()
-                // aggiungi l'imageindex alla tabella db
+                // TODO: aggiungi l'imageindex alla tabella db
             } else {
                 val usableItem = item as UsableItem
                 color = usableItem.rarity.getColor()
