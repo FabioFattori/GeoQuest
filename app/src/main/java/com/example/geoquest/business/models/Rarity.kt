@@ -1,8 +1,6 @@
 package com.example.geoquest.business.models
 
 import androidx.compose.ui.graphics.Color
-import com.google.gson.annotations.SerializedName
-import java.util.Date
 
 data class Rarity(
     val id: Int,

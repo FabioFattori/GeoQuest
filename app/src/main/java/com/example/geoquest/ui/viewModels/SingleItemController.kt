@@ -8,8 +8,4 @@ class SingleItemController {
     fun reset() {
         isClicked.value = false
     }
-
-    fun toggle() {
-        isClicked.value = !isClicked.value
-    }
 }

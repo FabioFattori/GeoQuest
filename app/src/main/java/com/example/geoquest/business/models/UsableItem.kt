@@ -1,7 +1,6 @@
 package com.example.geoquest.business.models
 
 import com.google.gson.annotations.SerializedName
-import java.util.Date
 
 data class UsableItem(
     override val id: Int,

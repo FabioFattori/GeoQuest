@@ -46,4 +46,5 @@
     <string name="armor">Armatura</string>
     <string name="weapon">Arma</string>
     <string name="alreadyCollected">Questo Poi è stato già raccolto per ora! Ritorna più tardi (I Poi si ricaricano dopo 4 ore)</string>
+    <string name="use">Usa</string>
 </resources>

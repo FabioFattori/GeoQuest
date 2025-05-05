@@ -1,6 +1,5 @@
 package com.example.geoquest.business.models
 
-import kotlinx.serialization.SerialName
 
 data class EquippableItem(
     override val id: Int,

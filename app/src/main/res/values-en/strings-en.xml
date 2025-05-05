@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">GeoQuest</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="logo">Logo</string>
@@ -46,5 +46,6 @@
     <string name="armor">Armor</string>
     <string name="weapon">Weapon</string>
     <string name="alreadyCollected">This Poi has already been collected for now! Come back later (Pois recharge after 4 hours).</string>
+    <string name="use">Use</string>
 
 </resources>
