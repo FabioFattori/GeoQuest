@@ -34,9 +34,9 @@ import com.example.geoquest.business.models.User
 import com.example.geoquest.ui.components.baseComponents.ButtonProps
 import com.example.geoquest.ui.components.baseComponents.ButtonShapes
 import com.example.geoquest.ui.components.baseComponents.CustomButton
-import com.example.geoquest.ui.components.baseComponents.DialogMode
+import com.example.geoquest.ui.components.dialogs.DialogMode
 import com.example.geoquest.ui.components.baseComponents.Select
-import com.example.geoquest.ui.components.baseComponents.SimpleDialog
+import com.example.geoquest.ui.components.dialogs.SimpleDialog
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 import com.example.geoquest.ui.viewModels.LanguageViewModel

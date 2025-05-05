@@ -1,8 +1,9 @@
 package com.example.geoquest.business.models
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import com.example.geoquest.business.models.enums.EquippableItemTypes
-import com.google.gson.annotations.SerializedName
-import java.util.Date
+import com.example.geoquest.R
 
 data class BluePrint(
     val id: Int,
@@ -14,10 +15,7 @@ data class BluePrint(
     val requiredLevel: Int,
     val randomFactor: Int,
     val type: Int,
-    @SerializedName("created_at")
-    val createdAt: Date,
-    @SerializedName("updated_at")
-    val updatedAt: Date,
+    val timeStamps: TimeStamps
 ) {
     fun resolveType(): EquippableItemTypes {
         return when (type) {
@@ -26,5 +24,16 @@ data class BluePrint(
             3 -> EquippableItemTypes.Rune
             else -> throw Exception("ERRORE => il tipo dell'equippable item non può essere $type")
         }
+    }
+
+    @Composable
+    fun getRuneString(): String {
+        return stringResource(
+            when (resolveType()) {
+                EquippableItemTypes.Rune -> R.string.rune
+                EquippableItemTypes.Weapon -> R.string.weapon
+                EquippableItemTypes.Armor -> R.string.armor
+            }
+        )
     }
 }

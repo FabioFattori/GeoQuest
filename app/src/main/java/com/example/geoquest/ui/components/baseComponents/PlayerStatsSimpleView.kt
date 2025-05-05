@@ -1,4 +1,4 @@
-package com.example.geoquest.ui.components
+package com.example.geoquest.ui.components.baseComponents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,8 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.business.models.Player
-import com.example.geoquest.ui.components.baseComponents.IconGradient
-import com.example.geoquest.ui.components.baseComponents.styledDashedBorder
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getGradient
 import com.example.geoquest.ui.theme.getSize

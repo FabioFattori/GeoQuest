@@ -1,12 +1,16 @@
 package com.example.geoquest.apiService
 
 import com.example.geoquest.apiService.dto.requests.CheckTokenParams
+import com.example.geoquest.apiService.dto.requests.CreatePoiRequest
 import com.example.geoquest.apiService.dto.requests.LoginParams
 import com.example.geoquest.apiService.dto.requests.NewUser
 import com.example.geoquest.apiService.dto.requests.CreateRandomItemRequest
+import com.example.geoquest.apiService.dto.requests.UpdatePlayerRequest
 import com.example.geoquest.apiService.dto.responses.OnlyMessageResponse
 import com.example.geoquest.apiService.dto.responses.RandomUsableItemResponse
 import com.example.geoquest.apiService.dto.responses.RegisterAndLoginResponse
+import com.example.geoquest.apiService.dto.responses.UpdatePlayerResponse
+import com.example.geoquest.business.models.CollectedPoi
 import com.example.geoquest.business.models.EquippableItem
 import com.example.geoquest.business.models.UsableItem
 import retrofit2.Response
@@ -14,6 +18,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -33,15 +38,27 @@ interface ApiServiceInterface {
     @DELETE("user/{id}")
     suspend fun deleteUser(@Path("id") userId: Int): Response<OnlyMessageResponse>
 
+    @PUT("player/{id}")
+    suspend fun updatePlayer(@Path("id") playerId:Int, @Body data: UpdatePlayerRequest) : Response<UpdatePlayerResponse>
+
     @POST("usableItems/createRandomUsableItem")
     suspend fun createRandomUsableItem(@Body data: CreateRandomItemRequest): Response<RandomUsableItemResponse>
 
-    @GET("usableItems/getUsableItemsOfUser")
-    suspend fun getUsableItemInventory(@Query("ownerId") userId: Int) : Response<List<UsableItem>>
+    @POST("equippableItems")
+    suspend fun createRandomEquippableItem(@Body data: CreateRandomItemRequest): Response<EquippableItem>
 
-    @GET("equippableItems/getInventory")
+    @GET("usableItems/getUsableItemsOfUser")
+    suspend fun getUsableItemInventory(@Query("ownerId") userId: Int): Response<List<UsableItem>>
+
+    @POST("collectedPois/create")
+    suspend fun collectPoi(@Body data : CreatePoiRequest) : Response<CollectedPoi>
+
+    @GET("collectedPois/getAll")
+    suspend fun getAllCollectedPoi(@Query("playerId") id: Int) : Response<List<CollectedPoi>>
+
+    @GET("inventory")
     suspend fun getInventory(
         @Query("ownerId") ownerId: Int,
         @Query("type") type: Int
-    ) : Response<List<EquippableItem>>
+    ): Response<List<EquippableItem>>
 }

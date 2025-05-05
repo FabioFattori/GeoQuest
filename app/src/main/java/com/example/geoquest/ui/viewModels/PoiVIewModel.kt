@@ -5,7 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.geoquest.apiService.ApiService
+import com.example.geoquest.apiService.dto.requests.CreatePoiRequest
 import com.example.geoquest.business.classes.DayPointOfInterest
+import com.example.geoquest.business.models.CollectedPoi
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -13,9 +15,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class PoiVIewModel : ViewModel() {
     private val _poiList = mutableStateOf<List<DayPointOfInterest>>(emptyList())
     val poiList: State<List<DayPointOfInterest>> = _poiList
+    private val _collectedPoiList = mutableStateOf<List<CollectedPoi>>(emptyList())
+    val collectedPoiList : State<List<CollectedPoi>> = _collectedPoiList
     val arePOIsLoading = mutableStateOf(true)
 
-    fun fetchPoi(lat: Double, lon: Double, needToLoad: Boolean = true) {
+
+    fun fetchPoi(lat: Double, lon: Double, needToLoad: Boolean = true,playerId: Int) {
         if (needToLoad) {
             arePOIsLoading.value = true
         }
@@ -41,7 +46,39 @@ class PoiVIewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val data = response.body()
                     _poiList.value = data?.elements?.map { it.toDayPoi() } ?: emptyList()
-                    arePOIsLoading.value = false
+                }
+
+                getPoiCollected(playerId)
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+
+                arePOIsLoading.value = false
+            }
+        }
+    }
+
+    private suspend fun getPoiCollected(playerId: Int){
+        val response = ApiService.retrofit.getAllCollectedPoi(playerId)
+        if (response.isSuccessful) {
+            val data = response.body()
+            _collectedPoiList.value = data ?: emptyList()
+            arePOIsLoading.value = false
+        }
+    }
+
+    fun onPoiCollect(collectedPoi: DayPointOfInterest, playerId: Int) {
+        viewModelScope.launch {
+            try {
+                val response = ApiService.retrofit.collectPoi(
+                    CreatePoiRequest(
+                        playerId = playerId,
+                        latitude = collectedPoi.position.lat,
+                        longitude = collectedPoi.position.lon
+                    )
+                )
+                if (response.isSuccessful) {
+                    getPoiCollected(playerId)
                 }
             } catch (e: Exception) {
                 // Handle error

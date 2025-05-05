@@ -10,10 +10,7 @@ data class Rarity(
     val hexColor: String,
     val multiplier: Int,
     val levelRequiredToDrop: Int,
-    @SerializedName("created_at")
-    val createdAt: Date,
-    @SerializedName("updated_at")
-    val updatedAt: Date,
+    val timeStamps: TimeStamps
 ) {
     fun getColor(): Color {
         val cleanedHex = this.hexColor.removePrefix("#")

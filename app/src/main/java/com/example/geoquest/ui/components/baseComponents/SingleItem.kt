@@ -1,5 +1,6 @@
 package com.example.geoquest.ui.components.baseComponents
 
+import android.text.Layout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -8,17 +9,39 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.geoquest.ui.theme.getGradient
+import com.example.geoquest.ui.viewModels.SingleItemController
 
-class SingleItemConfiguration{
-    companion object{
+class SingleItemConfiguration {
+    companion object {
         val size = 100.dp
     }
 }
+
+@Composable
+fun Modifier.borderOrGradient(showBorder: Boolean): Modifier = this.then(
+    if(showBorder){
+        Modifier.border(
+            width = 5.dp,
+            color = MaterialTheme.colorScheme.primary,
+            shape = RoundedCornerShape(16.dp)
+        )
+    }else{
+        Modifier.border(
+            width = 5.dp,
+            brush = getGradient(),
+            shape = RoundedCornerShape(16.dp)
+        )
+    }
+)
 
 @Composable
 fun SingleItem(
@@ -26,31 +49,31 @@ fun SingleItem(
     rarity: Color?,
     image: @Composable () -> Unit,
     clickable: Boolean,
+    controller : SingleItemController = remember { SingleItemController() },
     onClick: () -> Unit = {}
 ) {
+    val isClicked = controller.isClicked
 
     Box(
         modifier = modifier
             .size(SingleItemConfiguration.size)
             .background(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            rarity ?: MaterialTheme.colorScheme.tertiary, // centro
-                            MaterialTheme.colorScheme.tertiary // bordi
-                        ),
-                        center = Offset(0.5f, 0.5f), // percentuale rispetto al contenitore
-                        radius = Float.POSITIVE_INFINITY // si adatta al contenitore
+                brush = if (isClicked.value) getGradient() else Brush.radialGradient(
+                    colors = listOf(
+                        rarity ?: MaterialTheme.colorScheme.tertiary,
+                        MaterialTheme.colorScheme.tertiary
                     ),
+                    center = Offset(0.5f, 0.5f),
+                    radius = Float.POSITIVE_INFINITY
+                ),
                 shape = RoundedCornerShape(18.dp)
             )
-            .border(
-                width = 5.dp,
-                color = MaterialTheme.colorScheme.primary,
-                shape = RoundedCornerShape(16.dp)
-            )
+            .borderOrGradient(!isClicked.value)
             .clickable(enabled = clickable) {
                 onClick()
-            }
+                isClicked.value = !isClicked.value
+            },
+        contentAlignment = Alignment.Center
     ) {
         image()
     }

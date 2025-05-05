@@ -1,4 +1,4 @@
-package com.example.geoquest.ui.components.baseComponents
+package com.example.geoquest.ui.components.dialogs
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -17,6 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.example.geoquest.R
+import com.example.geoquest.ui.components.baseComponents.ButtonProps
+import com.example.geoquest.ui.components.baseComponents.ButtonShapes
+import com.example.geoquest.ui.components.baseComponents.CustomButton
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 

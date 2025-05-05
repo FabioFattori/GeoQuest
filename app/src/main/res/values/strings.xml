@@ -26,7 +26,7 @@
     <string name="maxLifa">Vitalità Massima</string>
     <string name="winBattles">Battaglie Vinte</string>
     <string name="totalBattles">Battaglie Totali</string>
-    <string name="mapbox_access_token" tools:ignore="Typos">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
+    <string name="mapbox_access_token" tools:ignore="Typos" translatable="false">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
     <string name="NoLocationPermission" tools:ignore="Typos">Questa funzionalità funziona solo accettando il permesso di location</string>
     <string name="LoadingLocation" tools:ignore="Typos">Caricamento della posizione, attendere…</string>
     <string name="questByFoot">Gambe in Spalle!</string>
@@ -37,4 +37,13 @@
     <string name="playerNotNextPOI">Sei troppo lontano dal punto di interesse! Avvicinati per riscatttare la riconpensa!</string>
     <string name="playerNextPOI">Puoi riscattare la ricompensa casuale del punto d\'interesse!</string>
     <string name="get">Ottieni</string>
+    <string name="equip">Equipaggia</string>
+    <string name="type">Tipo</string>
+    <string name="rarity">Rarità</string>
+    <string name="stats">Statistiche</string>
+    <string name="descriptio">Descrizione</string>
+    <string name="rune">Runa</string>
+    <string name="armor">Armatura</string>
+    <string name="weapon">Arma</string>
+    <string name="alreadyCollected">Questo Poi è stato già raccolto per ora! Ritorna più tardi (I Poi si ricaricano dopo 4 ore)</string>
 </resources>

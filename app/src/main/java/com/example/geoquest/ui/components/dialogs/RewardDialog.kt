@@ -1,7 +1,8 @@
-package com.example.geoquest.ui.components
+package com.example.geoquest.ui.components.dialogs
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,31 +17,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.geoquest.R
-import com.example.geoquest.business.classes.DayPointOfInterest
-import com.example.geoquest.business.classes.Position
+import com.example.geoquest.business.models.Rarity
 import com.example.geoquest.ui.components.baseComponents.ButtonProps
 import com.example.geoquest.ui.components.baseComponents.CustomButton
+import com.example.geoquest.ui.components.baseComponents.SingleItem
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 
 @Composable
-fun POIDialog(
-    onDismissRequest: () -> Unit,
+fun RewardDialog(
     onConfirmation: () -> Unit,
-    poi: DayPointOfInterest,
-    playerPosition: Position
+    image: @Composable () -> Unit,
+    title: String,
+    rarity: Rarity
 ) {
-    val isNear = poi.isNearPlayer(playerPosition = playerPosition)
-    val contentString =
-        if (isNear) stringResource(R.string.playerNextPOI) else stringResource(
-            R.string.playerNotNextPOI
-        )
-    val backString = stringResource(R.string.back)
-    val getString = stringResource(R.string.get)
 
-    Dialog(
-        onDismissRequest = { onDismissRequest() }) {
-        // Draw a rectangle shape with rounded corners inside the dialog
+    val okString = stringResource(R.string.get)
+
+    Dialog(onDismissRequest = { onConfirmation() }) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -48,33 +42,29 @@ fun POIDialog(
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(
+                modifier = Modifier
+                    .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = poi.getDisplayName(),
+                    text = title,
                     fontSize = getSize(TextType.Title),
                     modifier = Modifier.padding(16.dp),
                     fontWeight = FontWeight.Bold
                 )
-                Text(
-                    text = contentString,
-                    modifier = Modifier.padding(16.dp),
-                    fontSize = getSize(TextType.Normal),
-                )
-                CustomButton(
-                    props = ButtonProps(
-                        label = backString,
-                        onClick = onDismissRequest,
-                    ),
-                    modifier = Modifier.padding(8.dp),
+
+                SingleItem(
+                    image = image,
+                    rarity = rarity.getColor(),
+                    modifier = Modifier,
+                    clickable = false,
                 )
 
                 CustomButton(
                     props = ButtonProps(
-                        label = getString,
+                        label = okString,
                         onClick = onConfirmation,
-                        isEnabled = isNear
                     ),
                     modifier = Modifier.padding(8.dp),
                 )

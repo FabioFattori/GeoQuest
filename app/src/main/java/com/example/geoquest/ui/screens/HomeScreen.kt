@@ -28,11 +28,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.R
 import com.example.geoquest.business.classes.Position
+import com.example.geoquest.business.models.Player
 import com.example.geoquest.ui.components.MapDrawer
 import com.example.geoquest.ui.components.baseComponents.IconGradient
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 import com.example.geoquest.ui.viewModels.PoiVIewModel
+import com.example.geoquest.utilities.PreferenceManager
 import com.example.geoquest.utilities.getCurrentPlayerLocation
 import com.mapbox.android.core.permissions.PermissionsManager
 import kotlinx.coroutines.delay
@@ -41,6 +43,11 @@ import kotlinx.coroutines.delay
 fun HomeScreen(modifier: Modifier, goToQuests: () -> Unit) {
     val pointViewModel = PoiVIewModel()
     val context = LocalContext.current
+    val player = PreferenceManager.getObject("player", Player::class.java)
+
+    if(player == null){
+        throw Exception("NOT SUPPOSED TO BE HERE")
+    }
 
     if (!PermissionsManager.areLocationPermissionsGranted(context)) {
         Column(
@@ -62,6 +69,7 @@ fun HomeScreen(modifier: Modifier, goToQuests: () -> Unit) {
         val playerPosition = remember { mutableStateOf<Position?>(null) }
         val isLoading = remember { pointViewModel.arePOIsLoading }
         val lst = remember { pointViewModel.poiList }
+        val collectedLst = remember { pointViewModel.collectedPoiList }
         LaunchedEffect(Unit) {
             var needToLoad = true
             while (true) {
@@ -71,7 +79,8 @@ fun HomeScreen(modifier: Modifier, goToQuests: () -> Unit) {
                             pointViewModel.fetchPoi(
                                 position.lat,
                                 position.lon,
-                                needToLoad = needToLoad
+                                needToLoad = needToLoad,
+                                playerId = player.id
                             )
                             playerPosition.value = position
                         }
@@ -99,7 +108,8 @@ fun HomeScreen(modifier: Modifier, goToQuests: () -> Unit) {
                 MapDrawer(
                     modifier = modifier,
                     playerPosition = position,
-                    poiList = lst.value
+                    poiList = lst.value,
+                    collectedPoiList = collectedLst.value
                 )
                 FloatingActionButton(
                     onClick = goToQuests,

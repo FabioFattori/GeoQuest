@@ -27,7 +27,6 @@
     <string name="maxLifa">Max Health</string>
     <string name="winBattles">Won Battles</string>
     <string name="totalBattles">Fought Battles</string>
-    <string name="mapbox_access_token" tools:ignore="Typos">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
     <string name="NoLocationPermission">This feature only works by accepting the location permission</string>
     <string name="LoadingLocation">Loading the location, please wait…</string>
     <string name="questByFoot">Saddle Up!</string>
@@ -38,5 +37,14 @@
     <string name="playerNotNextPOI">You are to distant from the Point of Interest! Get close to collect the reward!</string>
     <string name="playerNextPOI">You can collect the random reward from the Point of Interest!</string>
     <string name="get">Get</string>
+    <string name="equip">Equip</string>
+    <string name="type">Type</string>
+    <string name="rarity">Rarity</string>
+    <string name="stats">Statistics</string>
+    <string name="descriptio">Description</string>
+    <string name="rune">Rune</string>
+    <string name="armor">Armor</string>
+    <string name="weapon">Weapon</string>
+    <string name="alreadyCollected">This Poi has already been collected for now! Come back later (Pois recharge after 4 hours).</string>
 
 </resources>

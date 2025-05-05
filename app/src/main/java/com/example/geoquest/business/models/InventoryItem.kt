@@ -1,3 +1,5 @@
 package com.example.geoquest.business.models
 
-interface InventoryItem
+interface InventoryItem{
+    val id: Int
+}
