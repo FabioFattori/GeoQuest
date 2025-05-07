@@ -8,5 +8,6 @@ data class UpdatePlayerRequest(
     val nBattles: Int,
     val helmetId: Int?,
     val weaponId: Int?,
-    val runeId: Int?
+    val runeId: Int?,
+    val currentHealth : Int?
 )

@@ -47,5 +47,8 @@
     <string name="weapon">Weapon</string>
     <string name="alreadyCollected">This Poi has already been collected for now! Come back later (Pois recharge after 4 hours).</string>
     <string name="use">Use</string>
+    <string name="mission">Quests</string>
+    <string name="completed">Completed</string>
+    <string name="noInventoryItems">Haven\'t got any items yet!</string>
 
 </resources>

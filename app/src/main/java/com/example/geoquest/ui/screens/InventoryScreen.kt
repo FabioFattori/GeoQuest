@@ -1,6 +1,7 @@
 package com.example.geoquest.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +26,6 @@ import com.example.geoquest.ui.components.baseComponents.BigLoader
 import com.example.geoquest.ui.components.baseComponents.PlayerStatsSimpleView
 import com.example.geoquest.ui.components.baseComponents.SingleItem
 import com.example.geoquest.ui.components.baseComponents.SingleItemConfiguration
-import com.example.geoquest.ui.viewModels.InventoryViewModel
 import com.example.geoquest.ui.viewModels.SingleItemController
 import com.example.geoquest.ui.viewModels.factories.GlobalViewModels
 import com.example.geoquest.utilities.ImagesResolver
@@ -53,7 +53,7 @@ fun GetItemImage(item: EquippableItem?) {
 @Composable
 fun InventoryScreen(modifier: Modifier) {
     val player: Player? = PreferenceManager.getObject("player", Player::class.java)
-    val dataGetter = remember { InventoryViewModel() }
+    val dataGetter = GlobalViewModels.inventoryHandler
     val mode = remember { mutableStateOf(Modes.UsableItems) }
     val equipmentController = remember {
         mapOf(
@@ -102,7 +102,6 @@ fun InventoryScreen(modifier: Modifier) {
             }
         }
 
-        // Loading reactive senza variabili locali
         val isLoading = when (mode.value) {
             Modes.UsableItems -> dataGetter.isLoadingUsableItems.value
             Modes.Weapons -> dataGetter.isLoadingWeapons.value
@@ -117,24 +116,26 @@ fun InventoryScreen(modifier: Modifier) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            PlayerStatsSimpleView(
-                player = player,
-            )
-            Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = modifier
-                    .height(SingleItemConfiguration.size + 20.dp)
-                    .padding(top = 20.dp)
-                    .fillMaxWidth()
-            ) {
-                if (needToReload.value) {
-                    BigLoader()
-                    LaunchedEffect(Unit) {
-                        // Reset dopo l'animazione se serve
-                        GlobalViewModels.inventoryReloader.resetAnimation()
-                    }
-                } else {
+            if (needToReload.value) {
+                BigLoader()
+                LaunchedEffect(Unit) {
+
+                    // Reset dopo l'animazione se serve
+                    GlobalViewModels.inventoryReloader.resetAnimation()
+                }
+            } else {
+                PlayerStatsSimpleView(
+                    player = player,
+                )
+                Row(
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = modifier
+                        .height(SingleItemConfiguration.size + 20.dp)
+                        .padding(top = 20.dp)
+                        .fillMaxWidth()
+                ) {
+
                     SingleItem(
                         modifier = modifier,
                         image = { GetItemImage(player.weapon) },
@@ -190,16 +191,22 @@ fun InventoryScreen(modifier: Modifier) {
                 if (isLoading) {
                     BigLoader()
                 } else {
-                    InventoryGrid(
-                        items = when (mode.value) {
-                            Modes.UsableItems -> dataGetter.usableItem.value
-                            Modes.Weapons -> dataGetter.weapons.value
-                            Modes.Armor -> dataGetter.armors.value
-                            Modes.Runes -> dataGetter.runes.value
-                        },
-                        player = player,
-                        mode = mode.value
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(start = 15.dp)
+                    ) {
+                        InventoryGrid(
+                            items = when (mode.value) {
+                                Modes.UsableItems -> dataGetter.usableItem.value
+                                Modes.Weapons -> dataGetter.weapons.value
+                                Modes.Armor -> dataGetter.armors.value
+                                Modes.Runes -> dataGetter.runes.value
+                            },
+                            player = player,
+                            mode = mode.value
+                        )
+                    }
 
                 }
             }

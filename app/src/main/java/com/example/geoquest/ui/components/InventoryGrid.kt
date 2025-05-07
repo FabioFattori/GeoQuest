@@ -1,17 +1,23 @@
 package com.example.geoquest.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import com.example.geoquest.business.models.InventoryItem
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.business.models.EquippableItem
 import com.example.geoquest.business.models.Player
@@ -19,11 +25,15 @@ import com.example.geoquest.business.models.UsableItem
 import com.example.geoquest.ui.components.baseComponents.SingleItem
 import com.example.geoquest.ui.components.baseComponents.SingleItemConfiguration
 import com.example.geoquest.ui.components.dialogs.EquippableItemDialog
+import com.example.geoquest.ui.components.dialogs.UsableItemDialog
 import com.example.geoquest.ui.screens.Modes
 import com.example.geoquest.ui.viewModels.InventoryEquipperViewModel
 import com.example.geoquest.ui.viewModels.SingleItemController
 import com.example.geoquest.ui.viewModels.factories.GlobalViewModels
 import com.example.geoquest.utilities.ImagesResolver
+import com.example.geoquest.R
+import com.example.geoquest.ui.theme.TextType
+import com.example.geoquest.ui.theme.getSize
 
 @Composable
 fun InventoryGrid(items: List<InventoryItem>, player: Player, mode: Modes) {
@@ -39,54 +49,72 @@ fun InventoryGrid(items: List<InventoryItem>, player: Player, mode: Modes) {
         mutableStateOf<SingleItemController?>(null)
     }
 
-    LazyVerticalGrid(
-        modifier = Modifier.padding(top = 28.dp),
-        columns = GridCells.FixedSize(SingleItemConfiguration.size),
-        contentPadding = PaddingValues(10.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
-        horizontalArrangement = Arrangement.spacedBy(15.dp)
-    ) {
-        items(items) { item ->
-            val color: Color
-            var imageIndex = ""
-            val controller = controllers[item.id]!!
-
-            if (item is EquippableItem) {
-                color = item.rarity.getColor()
-                imageIndex = item.blueprint.imagePath
-            } else {
-                val usableItem = item as UsableItem
-                color = usableItem.rarity.getColor()
-                imageIndex = usableItem.imageIndex
-            }
-            SingleItem(
-                modifier = Modifier,
-                rarity = color,
-                image = {
-                    val res = ImagesResolver.associateDbImagesToPossibleImages()[imageIndex]
-                    if (res == null) {
-                        Unit
-                    } else {
-                        ImagesResolver.GetImageComponent(res)
-                    }
-                },
-                clickable = true,
-                controller = controller,
-                onClick = {
-                    if (currentClickedController.value != null) {
-                        currentClickedController.value!!.reset()
-                    }
-                    currentClickedController.value = controller
-                    clickedElement.value = item
-                    if (item is EquippableItem) {
-                        isEquippableItemDialogOpen.value = true
-                    } else if (item is UsableItem) {
-                        isUsableItemDialogOpen.value = true
-                    }
-                }
+    if (items.isEmpty()) {
+        val noItemsString = stringResource(R.string.noInventoryItems)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 28.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                noItemsString,
+                fontWeight = FontWeight.Bold,
+                fontSize = getSize(TextType.Normal)
             )
         }
+    } else {
+        LazyVerticalGrid(
+            modifier = Modifier.padding(top = 28.dp),
+            columns = GridCells.FixedSize(SingleItemConfiguration.size),
+            contentPadding = PaddingValues(10.dp),
+            verticalArrangement = Arrangement.spacedBy(15.dp),
+            horizontalArrangement = Arrangement.spacedBy(15.dp)
+        ) {
+            items(items) { item ->
+                val color: Color
+                var imageIndex = ""
+                val controller = controllers[item.id]!!
+
+                if (item is EquippableItem) {
+                    color = item.rarity.getColor()
+                    imageIndex = item.blueprint.imagePath
+                } else {
+                    val usableItem = item as UsableItem
+                    color = usableItem.rarity.getColor()
+                    imageIndex = usableItem.imageIndex
+                }
+                SingleItem(
+                    modifier = Modifier,
+                    rarity = color,
+                    image = {
+                        val res = ImagesResolver.associateDbImagesToPossibleImages()[imageIndex]
+                        if (res == null) {
+                            Unit
+                        } else {
+                            ImagesResolver.GetImageComponent(res)
+                        }
+                    },
+                    clickable = true,
+                    controller = controller,
+                    onClick = {
+                        if (currentClickedController.value != null) {
+                            currentClickedController.value!!.reset()
+                        }
+                        currentClickedController.value = controller
+                        clickedElement.value = item
+                        if (item is EquippableItem) {
+                            isEquippableItemDialogOpen.value = true
+                        } else if (item is UsableItem) {
+                            isUsableItemDialogOpen.value = true
+                        }
+                    }
+                )
+            }
+        }
     }
+
+
 
     when {
         isEquippableItemDialogOpen.value -> {
@@ -115,7 +143,23 @@ fun InventoryGrid(items: List<InventoryItem>, player: Player, mode: Modes) {
         }
 
         isUsableItemDialogOpen.value -> {
-
+            UsableItemDialog(
+                onDismissRequest = {
+                    isUsableItemDialogOpen.value = false
+                    currentClickedController.value!!.reset()
+                },
+                onConfirmation = {
+                    isUsableItemDialogOpen.value = false
+                    currentClickedController.value!!.reset()
+                    InventoryEquipperViewModel().useUsableItem(
+                        clickedElement.value as UsableItem,
+                        player
+                    )
+                    GlobalViewModels.inventoryHandler.removeUsableItem(clickedElement.value as UsableItem)
+                    GlobalViewModels.inventoryReloader.triggerAnimation()
+                },
+                toShow = clickedElement.value as UsableItem,
+            )
         }
     }
 }

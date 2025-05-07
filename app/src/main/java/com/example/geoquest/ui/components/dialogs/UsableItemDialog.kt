@@ -22,10 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.geoquest.R
-import com.example.geoquest.business.models.EquippableItem
-import com.example.geoquest.business.models.Player
 import com.example.geoquest.business.models.UsableItem
-import com.example.geoquest.ui.components.StatTable
 import com.example.geoquest.ui.components.baseComponents.ButtonProps
 import com.example.geoquest.ui.components.baseComponents.CustomButton
 import com.example.geoquest.ui.components.baseComponents.IconGradient

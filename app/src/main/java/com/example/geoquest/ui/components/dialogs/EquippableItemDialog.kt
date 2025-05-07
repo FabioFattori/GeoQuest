@@ -58,7 +58,7 @@ fun GetSmallTextDialog(txt: String) {
 @Composable
 fun EquippableItemDialog(
     toShow: EquippableItem,
-    playerItem : EquippableItem?,
+    playerItem: EquippableItem?,
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
 ) {
@@ -67,6 +67,8 @@ fun EquippableItemDialog(
     val statString = stringResource(R.string.stats)
     val descString = stringResource(R.string.descriptio)
     val equipString = stringResource(R.string.equip)
+    val damageString = stringResource(R.string.damage)
+    val healthString = stringResource(R.string.life)
     val typeOfToShow = toShow.blueprint.getRuneString()
 
     Dialog(
@@ -75,7 +77,8 @@ fun EquippableItemDialog(
         // Draw a rectangle shape with rounded corners inside the dialog
         Card(
             modifier = Modifier
-                .fillMaxWidth().then(Modifier.widthIn(max = 1000.dp))
+                .fillMaxWidth()
+                .then(Modifier.widthIn(max = 1000.dp))
                 .padding(15.dp),
             shape = RoundedCornerShape(16.dp),
         ) {
@@ -156,7 +159,9 @@ fun EquippableItemDialog(
                 )
                 StatTable(
                     toCompare = toShow,
-                    playerItem = playerItem
+                    playerItem = playerItem,
+                    damageString = damageString,
+                    healthString = healthString
                 )
                 GetTextForDialog(
                     descString
@@ -165,7 +170,7 @@ fun EquippableItemDialog(
                 Box(
                     modifier = Modifier.fillMaxWidth(),
                     contentAlignment = Alignment.Center
-                ){
+                ) {
                     CustomButton(
                         props = ButtonProps(
                             label = equipString,

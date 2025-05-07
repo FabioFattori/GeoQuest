@@ -7,7 +7,8 @@ enum class TextType {
     BigTitle,
     Title,
     Normal,
-    ButtonText
+    ButtonText,
+    SmallText,
 }
 
 fun getSize(type: TextType): TextUnit {
@@ -16,5 +17,6 @@ fun getSize(type: TextType): TextUnit {
         TextType.Title -> 35.sp
         TextType.Normal -> 24.sp
         TextType.ButtonText -> 20.sp
+        TextType.SmallText -> 18.sp
     }
 }

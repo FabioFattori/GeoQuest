@@ -56,6 +56,9 @@ interface ApiServiceInterface {
     @GET("collectedPois/getAll")
     suspend fun getAllCollectedPoi(@Query("playerId") id: Int) : Response<List<CollectedPoi>>
 
+    @DELETE("usableItems/{id}")
+    suspend fun deleteUsableItem(@Path("id") id: Int) : Response<OnlyMessageResponse>
+
     @GET("inventory")
     suspend fun getInventory(
         @Query("ownerId") ownerId: Int,

@@ -34,7 +34,8 @@ class InventoryViewModel : ViewModel() {
         viewModelScope.launch {
             try {
 
-                val response = ApiService.getTokenizedRequester(PreferenceManager.getToken()!!).getUsableItemInventory(id)
+                val response = ApiService.getTokenizedRequester(PreferenceManager.getToken()!!)
+                    .getUsableItemInventory(id)
                 if (response.isSuccessful) {
                     val data = response.body()
                     _usableItems.value = data ?: emptyList()
@@ -49,8 +50,8 @@ class InventoryViewModel : ViewModel() {
         }
     }
 
-    private fun toggleBasedOnType(type: EquippableItemTypes){
-        when(type){
+    private fun toggleBasedOnType(type: EquippableItemTypes) {
+        when (type) {
             EquippableItemTypes.Weapon -> isLoadingWeapons.value = !isLoadingWeapons.value
             EquippableItemTypes.Armor -> isLoadingArmors.value = !isLoadingArmors.value
             EquippableItemTypes.Rune -> isLoadingRunes.value = !isLoadingRunes.value
@@ -65,11 +66,12 @@ class InventoryViewModel : ViewModel() {
                     id,
                     typeToGet
                 )
-                val response = ApiService.getTokenizedRequester(PreferenceManager.getToken()!!).getInventory(dataToSend.ownerId, dataToSend.type)
+                val response = ApiService.getTokenizedRequester(PreferenceManager.getToken()!!)
+                    .getInventory(dataToSend.ownerId, dataToSend.type)
                 if (response.isSuccessful) {
                     val data = response.body() ?: emptyList()
 
-                    when(typeToGet){
+                    when (typeToGet) {
                         EquippableItemTypes.Weapon -> _weapons.value = data
                         EquippableItemTypes.Rune -> _runes.value = data
                         EquippableItemTypes.Armor -> _armors.value = data
@@ -84,6 +86,12 @@ class InventoryViewModel : ViewModel() {
                 toggleBasedOnType(typeToGet)
             }
         }
+    }
+
+    fun removeUsableItem(toRem: UsableItem) {
+        val currentList = _usableItems.value.toMutableList()
+        currentList.remove(toRem)
+        _usableItems.value = currentList
     }
 
 }

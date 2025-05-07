@@ -13,13 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.geoquest.R
 import com.example.geoquest.business.models.EquippableItem
+import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getGradient
+import com.example.geoquest.ui.theme.getSize
 
 
 private fun getDisplayString(value: Int): String {
@@ -31,11 +30,13 @@ private fun getDisplayString(value: Int): String {
 }
 
 @Composable
-fun StatTable(toCompare: EquippableItem, playerItem: EquippableItem?) {
+fun StatTable(
+    toCompare: EquippableItem,
+    playerItem: EquippableItem?,
+    damageString: String,
+    healthString: String
+) {
     val weight = 1f
-
-    val damageString = stringResource(R.string.damage)
-    val healthString = stringResource(R.string.life)
 
     Column(
         Modifier
@@ -44,10 +45,11 @@ fun StatTable(toCompare: EquippableItem, playerItem: EquippableItem?) {
             .padding(bottom = 10.dp)
     ) {
         // Intestazione
+        // TODO: Change those string to be localized
         Row(modifier = Modifier.fillMaxWidth()) {
-            TableCell("", modifier = Modifier.weight(weight), isHeader = true)
-            TableCell("oggetto", modifier = Modifier.weight(weight), isHeader = true)
-            TableCell("corrente", modifier = Modifier.weight(weight), isHeader = true)
+            TableCell("", modifier = Modifier.weight(weight))
+            TableCell("oggetto", modifier = Modifier.weight(weight))
+            TableCell("corrente", modifier = Modifier.weight(weight))
         }
         // Riga Vita
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -78,10 +80,10 @@ fun StatTable(toCompare: EquippableItem, playerItem: EquippableItem?) {
 
 @Composable
 fun TableCell(
-    text: String, modifier: Modifier, isHeader: Boolean = false
+    text: String, modifier: Modifier
 ) {
     Box(
-        modifier = modifier
+        modifier = if (text.isEmpty()) modifier.padding(8.dp) else modifier
             .border(1.dp, getGradient(), shape = RectangleShape)
             .background(MaterialTheme.colorScheme.background)
             .padding(8.dp),
@@ -89,8 +91,8 @@ fun TableCell(
     ) {
         Text(
             text = text,
-            fontWeight = if (isHeader) FontWeight.Bold else FontWeight.Normal,
-            fontSize = if (isHeader) 18.sp else 16.sp
+            fontWeight = FontWeight.Normal,
+            fontSize = getSize(TextType.SmallText)
         )
     }
 }

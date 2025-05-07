@@ -2,14 +2,31 @@ package com.example.geoquest.ui.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.business.models.EquippableItem
 import com.example.geoquest.business.models.Player
+import com.example.geoquest.business.models.UsableItem
 import kotlinx.coroutines.launch
 
 class InventoryEquipperViewModel : ViewModel() {
-    fun equipItem(toEquip: EquippableItem,player: Player){
-        viewModelScope.launch { 
+    fun equipItem(toEquip: EquippableItem, player: Player) {
+        viewModelScope.launch {
             player.equipItem(toEquip)
+        }
+    }
+
+    fun useUsableItem(toUse: UsableItem, player: Player) {
+        viewModelScope.launch {
+            player.useUsableitem(toUse)
+            try {
+                val response = ApiService.retrofit.deleteUsableItem(toUse.id)
+                if (!response.isSuccessful) {
+                    throw IllegalStateException("Response is not successful")
+                }
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+            }
         }
     }
 }

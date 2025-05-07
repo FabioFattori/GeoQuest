@@ -13,10 +13,10 @@ data class Player(
     var experienceCollected: Int,
     val nWonBattles: Int,
     val nBattles: Int,
-    val currentHealth: Int,
+    var currentHealth: Int,
     var experienceNeeded: Int,
     val experienceToLevelUp: Int,
-    val damage: Int,
+    var damage: Int,
     val maxHealth: Int,
     var helmetId: Int?,
     val helmet: EquippableItem,
@@ -39,7 +39,8 @@ data class Player(
                         nBattles = nBattles,
                         helmetId = helmetId,
                         weaponId = weaponId,
-                        runeId = runeId
+                        runeId = runeId,
+                        currentHealth = currentHealth
                     )
                 )
                 if (response.isSuccessful) {
@@ -56,7 +57,7 @@ data class Player(
                 // Handle error
                 e.printStackTrace()
             }
-
+        PreferenceManager.saveObject("player",this)
     }
     // return true if player leveled up, false otherwise
     suspend fun collectExp(collectedExp : Int): Boolean{
@@ -75,6 +76,13 @@ data class Player(
             EquippableItemTypes.Armor -> helmetId = toEquip.id
             EquippableItemTypes.Rune -> runeId = toEquip.id
         }
+        updateDbUser()
+    }
+
+    suspend fun useUsableitem(toUse: UsableItem){
+        currentHealth += toUse.healthRecovery
+        if(currentHealth > maxHealth) currentHealth = maxHealth
+        // TODO: think if you want to add more features to the usableItems
         updateDbUser()
     }
 }
