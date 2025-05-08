@@ -11,6 +11,7 @@ import com.example.geoquest.apiService.dto.responses.RandomUsableItemResponse
 import com.example.geoquest.apiService.dto.responses.RegisterAndLoginResponse
 import com.example.geoquest.apiService.dto.responses.UpdatePlayerResponse
 import com.example.geoquest.business.models.CollectedPoi
+import com.example.geoquest.business.models.CompletedQuest
 import com.example.geoquest.business.models.EquippableItem
 import com.example.geoquest.business.models.UsableItem
 import retrofit2.Response
@@ -64,4 +65,13 @@ interface ApiServiceInterface {
         @Query("ownerId") ownerId: Int,
         @Query("type") type: Int
     ): Response<List<EquippableItem>>
+
+    @GET("usableItems/{id}")
+    suspend fun getUsableItemById(@Path("id") id: Int) : Response<UsableItem>
+
+    @GET("equippableItems/{id}")
+    suspend fun getEquippableItemById(@Path("id") id: Int) : Response<EquippableItem>
+
+    @GET("completedQuests/getAll")
+    suspend fun getAllCompletedQuests(@Query("playerId") playerId: Int) : Response<List<CompletedQuest>>
 }

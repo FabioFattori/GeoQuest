@@ -8,6 +8,9 @@ import androidx.health.connect.client.time.TimeRangeFilter
 import com.example.geoquest.R
 import com.example.geoquest.business.models.EquippableItem
 import com.example.geoquest.business.models.UsableItem
+import com.example.geoquest.ui.viewModels.InventoryViewModel
+import com.example.geoquest.ui.viewModels.QuestManager
+import org.json.JSONObject
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -43,4 +46,32 @@ class QuestByFoot(
         return this.getProgress(currentProgress.toInt(), maxProgress)
     }
 
+    override fun toJson(): JSONObject {
+        val json = super.toJson()
+        json.put("type", "FootQuest")
+        return json
+    }
+
+    companion object{
+        fun fromJson(json: JSONObject, context: Context, onFinished: (QuestByFoot) -> Unit) {
+            val getter = InventoryViewModel()
+
+            getter.getUsableItemById(json.getInt("secondChoiceId")) { usable ->
+                if (usable == null) return@getUsableItemById // handle error
+                getter.getEquippableItemById(json.getInt("firstChoiceId")) { equippable ->
+                    if (equippable == null) return@getEquippableItemById // handle error
+                    val difficulty = Difficulties.valueOf(json.getString("difficulty"))
+
+                    val quest = QuestByFoot(
+                        context = context,
+                        firstChoice = equippable,
+                        secondChoice = usable,
+                        difficulty = difficulty
+                    )
+                    onFinished(quest)
+                }
+            }
+
+        }
+    }
 }

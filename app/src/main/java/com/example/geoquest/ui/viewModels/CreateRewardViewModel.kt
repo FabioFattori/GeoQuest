@@ -34,13 +34,17 @@ class CreateRewardViewModel : ViewModel() {
         _generatedEquippableItem.value = null
     }
 
-    private fun createUsable(player: Player,onFinished: () -> Unit){
+    private fun createUsable(
+        player: Player,
+        onFinished: () -> Unit,
+        giveItemToPlayer: Boolean = true
+    ) {
         viewModelScope.launch {
             try {
                 val response = ApiService.retrofit.createRandomUsableItem(
                     CreateRandomItemRequest(
                         level = player.level,
-                        ownerId = player.id
+                        ownerId = if (giveItemToPlayer) player.id else null
                     )
                 )
                 if (response.isSuccessful) {
@@ -64,13 +68,17 @@ class CreateRewardViewModel : ViewModel() {
         }
     }
 
-    private fun createEquippable(player: Player,onFinished: () -> Unit){
+    private fun createEquippable(
+        player: Player,
+        onFinished: () -> Unit,
+        giveItemToPlayer: Boolean = true
+    ) {
         viewModelScope.launch {
             try {
                 val response = ApiService.retrofit.createRandomEquippableItem(
                     CreateRandomItemRequest(
                         level = player.level,
-                        ownerId = player.id
+                        ownerId = if (giveItemToPlayer) player.id else null
                     )
                 )
                 if (response.isSuccessful) {
@@ -94,7 +102,11 @@ class CreateRewardViewModel : ViewModel() {
         }
     }
 
-    fun createReward(typeToGenerate: GenerateType, onFinished: () -> Unit) {
+    fun createReward(
+        typeToGenerate: GenerateType,
+        onFinished: () -> Unit,
+        giveItemToPlayer: Boolean = true
+    ) {
 
         _isCreating.value = true
         val player = PreferenceManager.getObject("player", Player::class.java)
@@ -102,18 +114,20 @@ class CreateRewardViewModel : ViewModel() {
             _isCreating.value = false
             throw IllegalStateException("Player is null")
         }
-        when(typeToGenerate){
-            GenerateType.UsableItem -> createUsable(player,onFinished)
-            GenerateType.EquippableItem -> createEquippable(player,onFinished)
+        when (typeToGenerate) {
+            GenerateType.UsableItem -> createUsable(player, onFinished)
+            GenerateType.EquippableItem -> createEquippable(player, onFinished)
         }
 
-        viewModelScope.launch {
-            try {
-                player.collectExp(200)
-                GlobalViewModels.navBarViewModel.triggerAnimation()
-            } catch (e: Exception) {
-                // Handle error
-                e.printStackTrace()
+        if (giveItemToPlayer) {
+            viewModelScope.launch {
+                try {
+                    player.collectExp(200)
+                    GlobalViewModels.navBarViewModel.triggerAnimation()
+                } catch (e: Exception) {
+                    // Handle error
+                    e.printStackTrace()
+                }
             }
         }
     }

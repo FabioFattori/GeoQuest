@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.geoquest.R
 import com.example.geoquest.business.models.EquippableItem
 import com.example.geoquest.business.models.UsableItem
+import org.json.JSONObject
 import kotlin.math.min
 
 enum class Difficulties(val multiplier: Double) {
@@ -55,6 +56,15 @@ abstract class Quest(
 
     fun getProgress(currentProgress: Int, maxProgress: Int): Int {
         return min((currentProgress * 100 / maxProgress).toInt(), 100)
+    }
+
+    override fun toJson(): JSONObject {
+        val json = JSONObject()
+        json.put("exp", experiencePrize)
+        json.put("firstChoiceId", firstChoice.id)
+        json.put("secondChoiceId", secondChoice.id)
+        json.put("difficulty", difficulty.name)
+        return json
     }
 
     companion object {

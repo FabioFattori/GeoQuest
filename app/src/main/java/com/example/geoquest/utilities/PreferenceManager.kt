@@ -3,7 +3,11 @@ package com.example.geoquest.utilities
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.example.geoquest.business.classes.quests.Quest
+import com.example.geoquest.business.classes.quests.QuestByExp
+import com.example.geoquest.business.classes.quests.QuestByFoot
 import com.google.gson.Gson
+import org.json.JSONArray
 
 object PreferenceManager {
 
@@ -42,6 +46,46 @@ object PreferenceManager {
     fun getLanguage(): String {
         return prefs.getString("language", Languages.ITALIAN.code)!!
     }
+
+    fun saveQuests(lst: List<Quest>) {
+        val jsonArray = JSONArray()
+        for (quest in lst) {
+            jsonArray.put(quest.toJson())
+        }
+        prefs.edit { putString("quests", jsonArray.toString()) }
+    }
+
+    fun getQuests(context: Context, onFinished:(List<Quest>)-> Unit ) {
+        val storedQuests = prefs.getString("quests", "") ?: ""
+        if (storedQuests.isEmpty()) {
+            return onFinished(emptyList())
+        }
+        var loadedQuests = 0
+
+        val jsonArray = JSONArray(storedQuests)
+        val questList = mutableListOf<Quest>()
+
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject = jsonArray.getJSONObject(i)
+            val type = jsonObject.getString("type")
+            when (type) {
+                "ExpQuest" -> QuestByExp.fromJson(jsonObject, context) { quest ->
+                    questList.add(quest)
+                    loadedQuests++
+                    if(loadedQuests == jsonArray.length()) onFinished(questList)
+                }
+
+                "FootQuest" -> QuestByFoot.fromJson(jsonObject, context) { quest ->
+                    questList.add(quest)
+                    loadedQuests++
+                    if(loadedQuests == jsonArray.length()) onFinished(questList)
+                }
+
+                else -> onFinished(questList)
+            }
+        }
+    }
+
 
     fun <T> saveObject(key: String, obj: T) {
         val json = gson.toJson(obj)

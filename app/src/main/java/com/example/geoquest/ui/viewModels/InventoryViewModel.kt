@@ -88,6 +88,35 @@ class InventoryViewModel : ViewModel() {
         }
     }
 
+    fun getEquippableItemById(id: Int, onFinished: (EquippableItem?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val response = ApiService.retrofit
+                    .getEquippableItemById(id)
+                if (response.isSuccessful) {
+                    onFinished(response.body())
+                }
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getUsableItemById(id: Int, onFinished: (UsableItem?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val response = ApiService.retrofit.getUsableItemById(id)
+                if (response.isSuccessful) {
+                    onFinished(response.body())
+                }
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+            }
+        }
+    }
+
     fun removeUsableItem(toRem: UsableItem) {
         val currentList = _usableItems.value.toMutableList()
         currentList.remove(toRem)
