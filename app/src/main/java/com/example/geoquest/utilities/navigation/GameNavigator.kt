@@ -48,7 +48,9 @@ fun GameNavigator(
         }
 
         composable(Screens.Inventory.route) {
-            InventoryScreen(modifier = modifier)
+            InventoryScreen(modifier = modifier, reloadPage = {
+                navController.navigate(Screens.Inventory.route)
+            })
         }
 
         composable(Screens.Quests.route) {

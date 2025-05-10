@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -28,8 +29,9 @@ import com.example.geoquest.utilities.PreferenceManager
 fun QuestScreen(modifier: Modifier) {
     var selectedTab by remember { mutableIntStateOf(0) }
     val context = LocalContext.current
-    val questManager = QuestManager(context)
+    val questManager = remember { QuestManager(context) }
     val isLoading = remember { questManager.isLoadingQuests }
+    val isLoadingCompletedQuests = remember { questManager.isLoadingCompletedQuests }
     val questsToComplete = remember { questManager.questsForPlayer }
 
     Column(
@@ -49,7 +51,7 @@ fun QuestScreen(modifier: Modifier) {
                         modifier = Modifier.padding(20.dp)
                     ) {
                         items(questsToComplete.value) { quest ->
-                            SingleQuest(toShow = quest){
+                            SingleQuest(toShow = quest) {
                                 questManager.removeQuest(quest)
                             }
                             if (
@@ -63,24 +65,31 @@ fun QuestScreen(modifier: Modifier) {
                 }
 
                 1 -> {
-                    questManager.getCompletedQuests(
-                        PreferenceManager.getObject(
-                            "player",
-                            Player::class.java
-                        )!!.id
-                    )
+                    LaunchedEffect(Unit) {
+                        questManager.getCompletedQuests(
+                            PreferenceManager.getObject(
+                                "player",
+                                Player::class.java
+                            )!!.id
+                        )
+                    }
+
                     val completed = remember { questManager.completedQuest }
 
-                    LazyColumn(
-                        modifier = Modifier.padding(20.dp)
-                    ) {
-                        items(completed.value) { quest ->
-                            if (completed.value.first().id == quest.id) {
+                    if (isLoadingCompletedQuests.value) {
+                        BigLoader()
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.padding(20.dp)
+                        ) {
+                            items(completed.value) { quest ->
+                                if (completed.value.first().id == quest.id) {
+                                    Divider(modifier = Modifier)
+                                }
+
+                                SingleCompletedQuest(toShow = quest)
                                 Divider(modifier = Modifier)
                             }
-
-                            SingleCompletedQuest(toShow = quest)
-                            Divider(modifier = Modifier)
                         }
                     }
                 }

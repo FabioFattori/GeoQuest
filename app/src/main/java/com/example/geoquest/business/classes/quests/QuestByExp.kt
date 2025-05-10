@@ -18,7 +18,7 @@ class QuestByExp(
     secondChoice: UsableItem,
     difficulty: Difficulties = extractRandomDifficulty(),
 ) : Quest(
-    context.getString(R.string.questByFoot),
+    context.getString(R.string.questByExp),
     firstChoice,
     secondChoice,
     (QuestManager.QuestByExpConfiguration.baseExperience * difficulty.multiplier).toInt(),

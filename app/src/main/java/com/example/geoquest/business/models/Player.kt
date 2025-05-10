@@ -67,6 +67,7 @@ data class Player(
         if(toReturn) level++
         if(level > maxLevel) maxLevel = level
         updateDbUser()
+
         return toReturn
     }
 

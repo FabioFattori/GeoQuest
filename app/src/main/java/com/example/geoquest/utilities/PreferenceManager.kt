@@ -112,5 +112,6 @@ object PreferenceManager {
         clearObject("player")
         clearObject("isDarkTheme")
         clearObject("language")
+        clearObject("quests")
     }
 }

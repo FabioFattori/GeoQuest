@@ -32,6 +32,7 @@ import com.example.geoquest.R
 import com.example.geoquest.business.classes.quests.QuestByExp
 import com.example.geoquest.business.classes.quests.QuestByFoot
 import com.example.geoquest.ui.components.dialogs.ChooseItemDialog
+import com.example.geoquest.ui.viewModels.factories.GlobalViewModels
 
 fun getMaxProgression(quest: Quest): Int {
     return if (quest is QuestByFoot) {
@@ -78,7 +79,7 @@ fun SingleQuest(toShow: Quest,onGetQuest: () -> Unit) {
             fontSize = getSize(TextType.Normal)
         )
         LinearProgressIndicator(
-            progress = { currentProgress.intValue.toFloat() },
+            progress = { currentProgress.intValue.toFloat()/100 },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -137,6 +138,7 @@ fun SingleQuest(toShow: Quest,onGetQuest: () -> Unit) {
                 onAccept = {
                     isDialogOpen.value = false
                     onGetQuest()
+                    GlobalViewModels.navBarViewModel.triggerAnimation()
                 }
             )
         }

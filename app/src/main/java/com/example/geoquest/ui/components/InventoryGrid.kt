@@ -36,7 +36,7 @@ import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 
 @Composable
-fun InventoryGrid(items: List<InventoryItem>, player: Player, mode: Modes) {
+fun InventoryGrid(items: List<InventoryItem>, player: Player, mode: Modes,reloadPage:()-> Unit) {
     val clickedElement = remember { mutableStateOf<InventoryItem?>(null) }
     val isEquippableItemDialogOpen = remember { mutableStateOf(false) }
     val isUsableItemDialogOpen = remember { mutableStateOf(false) }
@@ -131,6 +131,7 @@ fun InventoryGrid(items: List<InventoryItem>, player: Player, mode: Modes) {
                         player
                     )
                     GlobalViewModels.inventoryReloader.triggerAnimation()
+                    reloadPage()
                 },
                 toShow = clickedElement.value as EquippableItem,
                 playerItem = when (mode) {

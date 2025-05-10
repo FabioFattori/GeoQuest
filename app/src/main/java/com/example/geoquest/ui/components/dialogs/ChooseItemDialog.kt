@@ -1,6 +1,7 @@
 package com.example.geoquest.ui.components.dialogs
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +29,7 @@ fun ChooseItemDialog(
     firstChoice: EquippableItem,
     secondChoice: UsableItem,
     onDismissRequest: () -> Unit,
-    onAccept : () -> Unit
+    onAccept: () -> Unit
 ) {
     val string = stringResource(R.string.chooseItem)
 
@@ -39,60 +40,64 @@ fun ChooseItemDialog(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp)
-                .padding(15.dp),
+                .height(500.dp),
             shape = RoundedCornerShape(16.dp),
         ) {
-            Text(
-                string,
-                fontSize = getSize(TextType.Title),
-            )
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceEvenly
+            Column(
+                modifier = Modifier
+                    .padding(15.dp)
             ) {
-                SingleItem(
-                    modifier = Modifier,
-                    clickable = true,
-                    image = {
-                        val res =
-                            ImagesResolver
-                                .associateDbImagesToPossibleImages()[firstChoice.blueprint.imagePath]
-                        if (res == null) {
-                            Unit
-                        } else {
-                            ImagesResolver.GetImageComponent(res)
-                        }
-                    },
-                    rarity = firstChoice.rarity.getColor(),
-                    onClick = {
-                        GlobalViewModels.inventoryHandler.ownEquippableItem(
-                            firstChoice
-                        )
-                        onAccept()
-                    }
+                Text(
+                    string,
+                    fontSize = getSize(TextType.Title),
                 )
-                SingleItem(
-                    modifier = Modifier,
-                    clickable = true,
-                    image = {
-                        val res =
-                            ImagesResolver
-                                .associateDbImagesToPossibleImages()[secondChoice.imageIndex]
-                        if (res == null) {
-                            Unit
-                        } else {
-                            ImagesResolver.GetImageComponent(res)
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    SingleItem(
+                        modifier = Modifier,
+                        clickable = true,
+                        image = {
+                            val res =
+                                ImagesResolver
+                                    .associateDbImagesToPossibleImages()[firstChoice.blueprint.imagePath]
+                            if (res == null) {
+                                Unit
+                            } else {
+                                ImagesResolver.GetImageComponent(res)
+                            }
+                        },
+                        rarity = firstChoice.rarity.getColor(),
+                        onClick = {
+                            GlobalViewModels.inventoryHandler.ownEquippableItem(
+                                firstChoice
+                            )
+                            onAccept()
                         }
-                    },
-                    rarity = secondChoice.rarity.getColor(),
-                    onClick = {
-                        GlobalViewModels.inventoryHandler.ownUsableItem(
-                            secondChoice
-                        )
-                        onAccept()
-                    }
-                )
+                    )
+                    SingleItem(
+                        modifier = Modifier,
+                        clickable = true,
+                        image = {
+                            val res =
+                                ImagesResolver
+                                    .associateDbImagesToPossibleImages()[secondChoice.imageIndex]
+                            if (res == null) {
+                                Unit
+                            } else {
+                                ImagesResolver.GetImageComponent(res)
+                            }
+                        },
+                        rarity = secondChoice.rarity.getColor(),
+                        onClick = {
+                            GlobalViewModels.inventoryHandler.ownUsableItem(
+                                secondChoice
+                            )
+                            onAccept()
+                        }
+                    )
+                }
             }
         }
     }

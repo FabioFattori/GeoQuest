@@ -62,4 +62,5 @@
     <string name="login">Accedi</string>
     <string name="login200">Accesso avvenuto con successo</string>
     <string name="playerName">Nome Personaggio</string>
+    <string name="questByExp">Sempre Verso l\'alto!</string>
 </resources>

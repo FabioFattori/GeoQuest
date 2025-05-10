@@ -1,6 +1,7 @@
 package com.example.geoquest.apiService
 
 import com.example.geoquest.apiService.dto.requests.CheckTokenParams
+import com.example.geoquest.apiService.dto.requests.CreateCompletedQuestRequest
 import com.example.geoquest.apiService.dto.requests.CreatePoiRequest
 import com.example.geoquest.apiService.dto.requests.LoginParams
 import com.example.geoquest.apiService.dto.requests.NewUser
@@ -74,6 +75,9 @@ interface ApiServiceInterface {
 
     @GET("completedQuests/getAll")
     suspend fun getAllCompletedQuests(@Query("playerId") playerId: Int) : Response<List<CompletedQuest>>
+
+    @POST("completedQuests/create")
+    suspend fun createCompletedQuest(@Body data: CreateCompletedQuestRequest) : Response<CompletedQuest>
 
     @PUT("usableItems/{id}")
     suspend fun ownUsableItem(@Path("id") itemId:Int,@Body ownerId: Int) : Response<UsableItem>

@@ -51,7 +51,7 @@ fun GetItemImage(item: EquippableItem?) {
 }
 
 @Composable
-fun InventoryScreen(modifier: Modifier) {
+fun InventoryScreen(modifier: Modifier,reloadPage:()-> Unit) {
     val player: Player? = PreferenceManager.getObject("player", Player::class.java)
     val dataGetter = GlobalViewModels.inventoryHandler
     val mode = remember { mutableStateOf(Modes.UsableItems) }
@@ -204,7 +204,8 @@ fun InventoryScreen(modifier: Modifier) {
                                 Modes.Runes -> dataGetter.runes.value
                             },
                             player = player,
-                            mode = mode.value
+                            mode = mode.value,
+                            reloadPage
                         )
                     }
 
