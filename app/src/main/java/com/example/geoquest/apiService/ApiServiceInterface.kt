@@ -7,6 +7,8 @@ import com.example.geoquest.apiService.dto.requests.LoginParams
 import com.example.geoquest.apiService.dto.requests.NewUser
 import com.example.geoquest.apiService.dto.requests.CreateRandomItemRequest
 import com.example.geoquest.apiService.dto.requests.UpdatePlayerRequest
+import com.example.geoquest.apiService.dto.responses.CurrentLeagueResponse
+import com.example.geoquest.apiService.dto.responses.LeagueRewardResponse
 import com.example.geoquest.apiService.dto.responses.OnlyMessageResponse
 import com.example.geoquest.apiService.dto.responses.RandomUsableItemResponse
 import com.example.geoquest.apiService.dto.responses.RegisterAndLoginResponse
@@ -41,7 +43,10 @@ interface ApiServiceInterface {
     suspend fun deleteUser(@Path("id") userId: Int): Response<OnlyMessageResponse>
 
     @PUT("player/{id}")
-    suspend fun updatePlayer(@Path("id") playerId:Int, @Body data: UpdatePlayerRequest) : Response<UpdatePlayerResponse>
+    suspend fun updatePlayer(
+        @Path("id") playerId: Int,
+        @Body data: UpdatePlayerRequest
+    ): Response<UpdatePlayerResponse>
 
     @POST("usableItems/createRandomUsableItem")
     suspend fun createRandomUsableItem(@Body data: CreateRandomItemRequest): Response<RandomUsableItemResponse>
@@ -53,13 +58,13 @@ interface ApiServiceInterface {
     suspend fun getUsableItemInventory(@Query("ownerId") userId: Int): Response<List<UsableItem>>
 
     @POST("collectedPois/create")
-    suspend fun collectPoi(@Body data : CreatePoiRequest) : Response<CollectedPoi>
+    suspend fun collectPoi(@Body data: CreatePoiRequest): Response<CollectedPoi>
 
     @GET("collectedPois/getAll")
-    suspend fun getAllCollectedPoi(@Query("playerId") id: Int) : Response<List<CollectedPoi>>
+    suspend fun getAllCollectedPoi(@Query("playerId") id: Int): Response<List<CollectedPoi>>
 
     @DELETE("usableItems/{id}")
-    suspend fun deleteUsableItem(@Path("id") id: Int) : Response<OnlyMessageResponse>
+    suspend fun deleteUsableItem(@Path("id") id: Int): Response<OnlyMessageResponse>
 
     @GET("inventory")
     suspend fun getInventory(
@@ -68,20 +73,32 @@ interface ApiServiceInterface {
     ): Response<List<EquippableItem>>
 
     @GET("usableItems/{id}")
-    suspend fun getUsableItemById(@Path("id") id: Int) : Response<UsableItem>
+    suspend fun getUsableItemById(@Path("id") id: Int): Response<UsableItem>
 
     @GET("equippableItems/{id}")
-    suspend fun getEquippableItemById(@Path("id") id: Int) : Response<EquippableItem>
+    suspend fun getEquippableItemById(@Path("id") id: Int): Response<EquippableItem>
 
     @GET("completedQuests/getAll")
-    suspend fun getAllCompletedQuests(@Query("playerId") playerId: Int) : Response<List<CompletedQuest>>
+    suspend fun getAllCompletedQuests(@Query("playerId") playerId: Int): Response<List<CompletedQuest>>
 
     @POST("completedQuests/create")
-    suspend fun createCompletedQuest(@Body data: CreateCompletedQuestRequest) : Response<CompletedQuest>
+    suspend fun createCompletedQuest(@Body data: CreateCompletedQuestRequest): Response<CompletedQuest>
 
     @PUT("usableItems/{id}")
-    suspend fun ownUsableItem(@Path("id") itemId:Int,@Body ownerId: Int) : Response<UsableItem>
+    suspend fun ownUsableItem(@Path("id") itemId: Int, @Body ownerId: Int): Response<UsableItem>
 
     @PUT("equippableItems/{id}")
-    suspend fun ownEquippableItem(@Path("id") itemId:Int,@Body ownerId: Int) : Response<EquippableItem>
+    suspend fun ownEquippableItem(
+        @Path("id") itemId: Int,
+        @Body ownerId: Int
+    ): Response<EquippableItem>
+
+    @GET("league")
+    suspend fun getCurrentLeague(@Query("playerId") playerId: Int): Response<CurrentLeagueResponse>
+
+    @GET("league/canGetReward")
+    suspend fun canPlayerGetReward(@Query("playerId") playerId: Int): Response<OnlyMessageResponse>
+
+    @POST("league/getReward")
+    suspend fun getReward(@Body playerId: Int): Response<LeagueRewardResponse>
 }
