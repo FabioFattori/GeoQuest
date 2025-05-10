@@ -1,5 +1,6 @@
 package com.example.geoquest.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,6 +40,7 @@ import com.example.geoquest.utilities.getCurrentPlayerLocation
 import com.mapbox.android.core.permissions.PermissionsManager
 import kotlinx.coroutines.delay
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun HomeScreen(modifier: Modifier, goToQuests: () -> Unit) {
     val pointViewModel = PoiVIewModel()

@@ -17,13 +17,11 @@ import androidx.compose.ui.window.Dialog
 import com.example.geoquest.business.models.EquippableItem
 import com.example.geoquest.business.models.UsableItem
 import com.example.geoquest.R
-import com.example.geoquest.business.models.Player
 import com.example.geoquest.ui.components.baseComponents.SingleItem
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 import com.example.geoquest.ui.viewModels.factories.GlobalViewModels
 import com.example.geoquest.utilities.ImagesResolver
-import com.example.geoquest.utilities.PreferenceManager
 
 @Composable
 fun ChooseItemDialog(

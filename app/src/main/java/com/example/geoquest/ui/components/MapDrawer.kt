@@ -1,5 +1,6 @@
 package com.example.geoquest.ui.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,6 +42,7 @@ import com.mapbox.maps.plugin.locationcomponent.location
 import kotlin.random.Random
 
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun MapDrawer(
     modifier: Modifier,
