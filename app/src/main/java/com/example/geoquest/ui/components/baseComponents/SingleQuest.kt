@@ -32,7 +32,6 @@ import com.example.geoquest.R
 import com.example.geoquest.business.classes.quests.QuestByExp
 import com.example.geoquest.business.classes.quests.QuestByFoot
 import com.example.geoquest.ui.components.dialogs.ChooseItemDialog
-import kotlin.reflect.typeOf
 
 fun getMaxProgression(quest: Quest): Int {
     return if (quest is QuestByFoot) {

@@ -1,20 +1,15 @@
 package com.example.geoquest.ui.components.dialogs
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -26,7 +21,6 @@ import com.example.geoquest.business.models.Player
 import com.example.geoquest.ui.components.baseComponents.SingleItem
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
-import com.example.geoquest.ui.viewModels.InventoryEquipperViewModel
 import com.example.geoquest.ui.viewModels.factories.GlobalViewModels
 import com.example.geoquest.utilities.ImagesResolver
 import com.example.geoquest.utilities.PreferenceManager
@@ -39,7 +33,6 @@ fun ChooseItemDialog(
     onAccept : () -> Unit
 ) {
     val string = stringResource(R.string.chooseItem)
-    val player = PreferenceManager.getObject("player", Player::class.java)
 
     Dialog(
         onDismissRequest = onDismissRequest,
