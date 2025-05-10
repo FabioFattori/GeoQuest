@@ -37,7 +37,7 @@ class QuestByExp(
         val player = PreferenceManager.getObject("player", Player::class.java)
         if (player == null) throw Exception("PLAYER IS NULL")
 
-        return player.experienceCollected - playerExpAtQuestStart
+        return player.experienceCollected - playerExpAtQuestStart + alreadyMadeProgress
     }
 
     override suspend fun getProgress(): Int {

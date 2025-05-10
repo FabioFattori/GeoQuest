@@ -50,4 +50,16 @@
     <string name="mission">Missioni</string>
     <string name="completed">Completate</string>
     <string name="noInventoryItems">Non hai nessun oggetto!</string>
+    <string name="rewards">Ricompense</string>
+    <string name="experience">Esperienza</string>
+    <string name="experienceDesc">Completa la missione per ottenere %1$d punti esperienza!</string>
+    <string name="chooseItem">Complimenti, clicca sull\'oggetto che desideri riscattare!</string>
+    <string name="register">Registrati</string>
+    <string name="confPassword">Conferma Password</string>
+    <string name="gotAccount">Ho un Account</string>
+    <string name="register200">Registrazione avvenuta con successo</string>
+    <string name="newAccount">Nuovo Account</string>
+    <string name="login">Accedi</string>
+    <string name="login200">Accesso avvenuto con successo</string>
+    <string name="playerName">Nome Personaggio</string>
 </resources>

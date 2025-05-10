@@ -15,8 +15,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.GameActivity
+import com.example.geoquest.R
 import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.apiService.dto.requests.LoginParams
 import com.example.geoquest.apiService.dto.responses.RegisterAndLoginResponse
@@ -40,6 +42,9 @@ fun LoginScreen(
     val coroutineScope = rememberCoroutineScope()
 
     val context = LocalContext.current
+    val logString = stringResource(R.string.login)
+    val log200String = stringResource(R.string.login200)
+    val newAccountString = stringResource(R.string.newAccount)
 
     Column(
         modifier = modifier.padding(20.dp, 30.dp),
@@ -48,7 +53,7 @@ fun LoginScreen(
     ) {
         Logo()
         Text(
-            "Accedi",
+            logString,
             fontSize = getSize(TextType.BigTitle),
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(top = 30.dp, bottom = 30.dp)
@@ -73,7 +78,7 @@ fun LoginScreen(
 
         CustomButton(
             props = ButtonProps(
-                label = "Accedi",
+                label = logString,
                 onClick = {
                     coroutineScope.launch {
                         val check = userViewModel.checkLoginData()
@@ -85,7 +90,7 @@ fun LoginScreen(
                             try {
                                 val response = ApiService.retrofit.loginUser(params)
                                 if (response.isSuccessful) {
-                                    snackBarHostState.showSnackbar("Accesso avvenuto con successo!")
+                                    snackBarHostState.showSnackbar(log200String)
                                     userViewModel.storeResponse(response.body() as RegisterAndLoginResponse)
                                     context.startActivity(Intent(context, GameActivity::class.java))
                                 } else {
@@ -107,7 +112,7 @@ fun LoginScreen(
 
         CustomButton(
             props = ButtonProps(
-                label = "Nuovo Account",
+                label = newAccountString,
                 onClick = onRegisterRedirect
             ),
             modifier = Modifier.padding(

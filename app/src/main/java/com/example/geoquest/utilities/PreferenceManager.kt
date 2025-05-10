@@ -65,24 +65,29 @@ object PreferenceManager {
         val jsonArray = JSONArray(storedQuests)
         val questList = mutableListOf<Quest>()
 
-        for (i in 0 until jsonArray.length()) {
+        for (i in 0 .. jsonArray.length()-1) {
             val jsonObject = jsonArray.getJSONObject(i)
             val type = jsonObject.getString("type")
             when (type) {
                 "ExpQuest" -> QuestByExp.fromJson(jsonObject, context) { quest ->
                     questList.add(quest)
                     loadedQuests++
-                    if(loadedQuests == jsonArray.length()) onFinished(questList)
+                    if(loadedQuests == jsonArray.length())
+                        onFinished(questList)
                 }
 
                 "FootQuest" -> QuestByFoot.fromJson(jsonObject, context) { quest ->
                     questList.add(quest)
                     loadedQuests++
-                    if(loadedQuests == jsonArray.length()) onFinished(questList)
+                    if(loadedQuests == jsonArray.length())
+                        onFinished(questList)
                 }
 
                 else -> onFinished(questList)
             }
+        }
+        if (loadedQuests == jsonArray.length()){
+            onFinished(questList)
         }
     }
 

@@ -20,19 +20,24 @@ enum class PossibleQuests {
 }
 
 class QuestManager(context: Context) : ViewModel() {
-    val questsForPlayer = mutableListOf<Quest>()
+    val questsForPlayer = mutableStateOf<List<Quest>>(emptyList())
     val isLoadingQuests = mutableStateOf(false)
     val completedQuest = mutableStateOf<List<CompletedQuest>>(emptyList())
 
     init {
         isLoadingQuests.value = true
         PreferenceManager.getQuests(context) { lst ->
-            questsForPlayer.addAll(lst)
+            questsForPlayer.value = lst
             generateQuests(
                 PreferenceManager.getObject("player", Player::class.java)!!,
                 context
             )
         }
+    }
+
+    fun removeQuest(toRemove : Quest){
+        questsForPlayer.value -= toRemove
+        PreferenceManager.saveQuests(questsForPlayer.value)
     }
 
     fun getCompletedQuests(playerId: Int) {
@@ -58,8 +63,9 @@ class QuestManager(context: Context) : ViewModel() {
 
     fun generateQuests(player: Player, context: Context) {
         val generator = CreateRewardViewModel()
+        var nGenerationCompleted = questsForPlayer.value.size
 
-        for (i in 1..MAX_ACTIVE_QUESTS - questsForPlayer.size) {
+        for (i in 1..MAX_ACTIVE_QUESTS - questsForPlayer.value.size) {
             generator.clearGeneratedEquippableItem()
             generator.clearGeneratedUsableItem()
 
@@ -76,7 +82,8 @@ class QuestManager(context: Context) : ViewModel() {
                             PossibleQuests.QuestByFoot -> QuestByFoot(
                                 context,
                                 firstChoice = equippableItem,
-                                secondChoice = usableItem
+                                secondChoice = usableItem,
+                                alreadyMadeProgress = 0
                             )
 
                             PossibleQuests.QuestByExp -> QuestByExp(
@@ -86,28 +93,28 @@ class QuestManager(context: Context) : ViewModel() {
                                 playerExpAtQuestStart = player.experienceCollected
                             )
                         }
-
-                        questsForPlayer.add(newQuest)
-                        PreferenceManager.saveQuests(questsForPlayer)
-                        if (questsForPlayer.size == MAX_ACTIVE_QUESTS) isLoadingQuests.value = false
+                        nGenerationCompleted++
+                        questsForPlayer.value += newQuest
+                        PreferenceManager.saveQuests(questsForPlayer.value)
+                        if (questsForPlayer.value.size == MAX_ACTIVE_QUESTS) isLoadingQuests.value = false
                     } else {
                         throw Exception("something is null => eq ${equippableItem}, usa ${usableItem}")
                     }
                 }, giveItemToPlayer = false)
             }, giveItemToPlayer = false)
         }
-        if (questsForPlayer.size == MAX_ACTIVE_QUESTS) isLoadingQuests.value = false
+        if (questsForPlayer.value.size == MAX_ACTIVE_QUESTS || nGenerationCompleted == MAX_ACTIVE_QUESTS)
+            isLoadingQuests.value = false
 
     }
 
     private fun extractRandomQuestType(): PossibleQuests {
-        val possibleValues = PossibleQuests.entries.toTypedArray()
-        return possibleValues[(0..(possibleValues.size - 1)).random()]
+        return PossibleQuests.entries.random()
     }
 
 
     companion object {
-        const val MAX_ACTIVE_QUESTS = 5
+        const val MAX_ACTIVE_QUESTS = 2
         val QuestByFootConfiguration = QuestBaseConfiguration(1000, 700)
         val QuestByExpConfiguration = QuestBaseConfiguration(2000, 1000)
     }

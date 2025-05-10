@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.apiService.dto.requests.GetInventoryRequest
 import com.example.geoquest.business.models.EquippableItem
+import com.example.geoquest.business.models.Player
 import com.example.geoquest.business.models.UsableItem
 import com.example.geoquest.business.models.enums.EquippableItemTypes
 import com.example.geoquest.utilities.PreferenceManager
@@ -121,6 +122,38 @@ class InventoryViewModel : ViewModel() {
         val currentList = _usableItems.value.toMutableList()
         currentList.remove(toRem)
         _usableItems.value = currentList
+    }
+
+    fun ownEquippableItem(toOwn : EquippableItem){
+        val player = PreferenceManager.getObject("player", Player::class.java)
+        if(player == null) throw Exception("NO PLAYER to be the owner")
+        viewModelScope.launch {
+            try {
+                val response = ApiService.retrofit.ownEquippableItem(toOwn.id,player.id)
+                if (!response.isSuccessful) {
+                    throw Exception("ERROR IN THE REQUEST")
+                }
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun ownUsableItem(toOwn : UsableItem){
+        val player = PreferenceManager.getObject("player", Player::class.java)
+        if(player == null) throw Exception("NO PLAYER to be the owner")
+        viewModelScope.launch {
+            try {
+                val response = ApiService.retrofit.ownUsableItem(toOwn.id,player.id)
+                if (!response.isSuccessful) {
+                    throw Exception("ERROR IN THE REQUEST")
+                }
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+            }
+        }
     }
 
 }

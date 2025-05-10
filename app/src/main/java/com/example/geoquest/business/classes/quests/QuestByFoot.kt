@@ -19,6 +19,7 @@ class QuestByFoot(
     val context: Context,
     firstChoice: EquippableItem,
     secondChoice: UsableItem,
+    var alreadyMadeProgress : Int,
     difficulty: Difficulties = extractRandomDifficulty()
 ) : Quest(
     context.getString(R.string.questByFoot),
@@ -32,23 +33,34 @@ class QuestByFoot(
     override suspend fun getProgress(): Int {
         val healthConnectClient = HealthConnectClient.getOrCreate(context)
 
+        val granted = healthConnectClient.permissionController.getGrantedPermissions()
+        val requiredPermission = androidx.health.connect.client.permission.HealthPermission.getReadPermission(StepsRecord::class)
+
+        if (requiredPermission !in granted) {
+            // Permission not granted — return fallback or signal to the UI that permission is needed
+            return 0
+        }
+
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()
         val endTime = Instant.now()
 
         val response = healthConnectClient.readRecords(
-            ReadRecordsRequest<StepsRecord>(
+            ReadRecordsRequest(
+                recordType = StepsRecord::class,
                 timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
             )
         )
 
-        val currentProgress = response.records.sumOf { it.count }
-
+        val currentProgress = response.records.sumOf { it.count } + alreadyMadeProgress
+        alreadyMadeProgress = currentProgress.toInt()
         return this.getProgress(currentProgress.toInt(), maxProgress)
     }
+
 
     override fun toJson(): JSONObject {
         val json = super.toJson()
         json.put("type", "FootQuest")
+        json.put("progress",alreadyMadeProgress)
         return json
     }
 
@@ -66,7 +78,8 @@ class QuestByFoot(
                         context = context,
                         firstChoice = equippable,
                         secondChoice = usable,
-                        difficulty = difficulty
+                        difficulty = difficulty,
+                        alreadyMadeProgress = json.getInt("progress")
                     )
                     onFinished(quest)
                 }

@@ -50,5 +50,17 @@
     <string name="mission">Quests</string>
     <string name="completed">Completed</string>
     <string name="noInventoryItems">Haven\'t got any items yet!</string>
+    <string name="rewards">Rewards</string>
+    <string name="experience">Experience</string>
+    <string name="experienceDesc">Complete this quest to obtain %1$d exp!</string>
+    <string name="chooseItem">Great job, click the item you would like to get!</string>
+    <string name="register">Register</string>
+    <string name="confPassword">"Confirm Password "</string>
+    <string name="gotAccount">Already have an Account</string>
+    <string name="register200">Welcome new User</string>
+    <string name="newAccount">New Around Here</string>
+    <string name="login">Login</string>
+    <string name="login200">Welcome Back!</string>
+    <string name="playerName">Player Name</string>
 
 </resources>

@@ -17,6 +17,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.GameActivity
 import com.example.geoquest.apiService.ApiService
@@ -31,6 +32,7 @@ import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 import com.example.geoquest.ui.viewModels.UserViewModel
 import kotlinx.coroutines.launch
+import com.example.geoquest.R
 
 @Composable
 fun RegisterScreen(
@@ -41,6 +43,12 @@ fun RegisterScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+    val regString = stringResource(R.string.register)
+    val plString = stringResource(R.string.playerName)
+    val confPassString = stringResource(R.string.confPassword)
+    val reg200String = stringResource(R.string.register200)
+    val gotAccountString = stringResource(R.string.gotAccount)
+
     Column(
         modifier = modifier.padding(20.dp, 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,7 +56,7 @@ fun RegisterScreen(
     ) {
         Logo()
         Text(
-            "Registrati",
+            regString,
             fontSize = getSize(TextType.BigTitle),
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(top = 30.dp, bottom = 30.dp)
@@ -56,7 +64,7 @@ fun RegisterScreen(
         GenericInput(
             props = GenericInputProps(
                 icon = Icons.Rounded.Accessibility,
-                label = "Nome Personaggio",
+                label = plString,
                 text = userViewModel.playerName
             )
         )
@@ -79,7 +87,7 @@ fun RegisterScreen(
         GenericInput(
             props = GenericInputProps(
                 icon = Icons.Rounded.LockReset,
-                label = "Conferma Password",
+                label = confPassString,
                 text = userViewModel.passwordConfirmation,
                 isPassword = true
             )
@@ -87,7 +95,7 @@ fun RegisterScreen(
 
         CustomButton(
             props = ButtonProps(
-                label = "Registrati", onClick = {
+                label = regString, onClick = {
                     coroutineScope.launch {
                         val check = userViewModel.checkRegisterData()
                         if (check.first) {
@@ -99,7 +107,7 @@ fun RegisterScreen(
                             try {
                                 val response = ApiService.retrofit.registerUser(newUser)
                                 if (response.isSuccessful) {
-                                    snackBarHostState.showSnackbar("Registrazione avvenuta con successo!")
+                                    snackBarHostState.showSnackbar(reg200String)
                                     userViewModel.storeResponse(response.body() as RegisterAndLoginResponse)
                                     context.startActivity(Intent(context, GameActivity::class.java))
                                 } else {
@@ -120,7 +128,7 @@ fun RegisterScreen(
 
         CustomButton(
             props = ButtonProps(
-                label = "Ho un Account", onClick = onLoginRedirect
+                label = gotAccountString, onClick = onLoginRedirect
             ), modifier = Modifier.padding(
                 top = 25.dp
             )

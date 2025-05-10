@@ -19,11 +19,11 @@ data class Player(
     var damage: Int,
     val maxHealth: Int,
     var helmetId: Int?,
-    val helmet: EquippableItem,
+    var helmet: EquippableItem,
     var weaponId: Int?,
-    val weapon: EquippableItem,
+    var weapon: EquippableItem,
     var runeId: Int?,
-    val rune: EquippableItem,
+    var rune: EquippableItem,
     val collectedPoi: List<CollectedPoi>,
     val completedQuests : List<CompletedQuest>
 ){
@@ -72,9 +72,18 @@ data class Player(
 
     suspend fun equipItem(toEquip: EquippableItem){
         when(toEquip.blueprint.resolveType()){
-            EquippableItemTypes.Weapon -> weaponId = toEquip.id
-            EquippableItemTypes.Armor -> helmetId = toEquip.id
-            EquippableItemTypes.Rune -> runeId = toEquip.id
+            EquippableItemTypes.Weapon -> {
+                weaponId = toEquip.id
+                weapon = toEquip
+            }
+            EquippableItemTypes.Armor -> {
+                helmetId = toEquip.id
+                helmet = toEquip
+            }
+            EquippableItemTypes.Rune -> {
+                runeId = toEquip.id
+                rune = toEquip
+            }
         }
         updateDbUser()
     }

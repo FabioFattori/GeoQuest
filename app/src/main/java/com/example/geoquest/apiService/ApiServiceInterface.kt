@@ -74,4 +74,10 @@ interface ApiServiceInterface {
 
     @GET("completedQuests/getAll")
     suspend fun getAllCompletedQuests(@Query("playerId") playerId: Int) : Response<List<CompletedQuest>>
+
+    @PUT("usableItems/{id}")
+    suspend fun ownUsableItem(@Path("id") itemId:Int,@Body ownerId: Int) : Response<UsableItem>
+
+    @PUT("equippableItems/{id}")
+    suspend fun ownEquippableItem(@Path("id") itemId:Int,@Body ownerId: Int) : Response<EquippableItem>
 }

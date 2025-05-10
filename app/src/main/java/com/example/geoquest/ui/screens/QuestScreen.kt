@@ -1,5 +1,6 @@
 package com.example.geoquest.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -19,17 +19,19 @@ import com.example.geoquest.business.models.Player
 import com.example.geoquest.ui.components.baseComponents.BigLoader
 import com.example.geoquest.ui.components.baseComponents.Divider
 import com.example.geoquest.ui.components.baseComponents.SingleCompletedQuest
+import com.example.geoquest.ui.components.baseComponents.SingleQuest
 import com.example.geoquest.ui.components.layout.MissionsTabRow
 import com.example.geoquest.utilities.PreferenceManager
 
+
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun QuestScreen(modifier: Modifier) {
     var selectedTab by remember { mutableIntStateOf(0) }
     val context = LocalContext.current
     val questManager = QuestManager(context)
     val isLoading = remember { questManager.isLoadingQuests }
-
-
+    val questsToComplete = remember { questManager.questsForPlayer }
 
     Column(
         modifier = modifier
@@ -43,7 +45,24 @@ fun QuestScreen(modifier: Modifier) {
             BigLoader()
         } else {
             when (selectedTab) {
-                0 -> Text("CURRENT QUESTS")
+                0 -> {
+                    LazyColumn(
+                        modifier = Modifier.padding(20.dp)
+                    ) {
+                        items(questsToComplete.value) { quest ->
+                            SingleQuest(toShow = quest){
+                                questManager.removeQuest(quest)
+                            }
+                            if (
+                                questsToComplete.value.indexOf(quest) != questsToComplete.value.size - 1
+                            ) {
+                                Divider(modifier = Modifier)
+                            }
+                        }
+                    }
+
+                }
+
                 1 -> {
                     questManager.getCompletedQuests(
                         PreferenceManager.getObject(
