@@ -63,4 +63,15 @@
     <string name="login200">Accesso avvenuto con successo</string>
     <string name="playerName">Nome Personaggio</string>
     <string name="questByExp">Sempre Verso l\'alto!</string>
+    <string name="leagueReward">Ricompensa Dell’arena</string>
+    <string name="leagueDesc">Vincendo le battaglie con gli altri giocatori salirai di posizione nella classifica generale, ed in base alla tua posizioni riceverai un qualsiasi oggetto del grado che ti sei guadagnato.</string>
+    <string name="leaguePos">Posizione Attuale</string>
+    <string name="gradeReward">Grado dell\'Oggetto</string>
+    <string name="legendary">Leggendario</string>
+    <string name="epic">Epico</string>
+    <string name="rare">Raro</string>
+    <string name="common">Comune</string>
+    <string name="canGetReward">Puoi riscattare la ricompensa di questa settimana!</string>
+    <string name="alreadyGotReward">Hai già riscattato la ricompensa per questa settimana!</string>
+    <string name="notEnoughBattles">Devi almeno aver combattuto 10 battaglie per poter riscattare la ricompensa!</string>
 </resources>

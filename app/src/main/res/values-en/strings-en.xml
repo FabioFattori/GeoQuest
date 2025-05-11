@@ -55,13 +55,24 @@
     <string name="experienceDesc">Complete this quest to obtain %1$d exp!</string>
     <string name="chooseItem">Great job, click the item you would like to get!</string>
     <string name="register">Register</string>
-    <string name="confPassword">"Confirm Password "</string>
+    <string name="confPassword">Confirm Password</string>
     <string name="gotAccount">Have an Account</string>
     <string name="register200">Welcome new User</string>
     <string name="newAccount">New Around Here</string>
     <string name="login">Login</string>
     <string name="login200">Welcome Back!</string>
     <string name="playerName">Player Name</string>
-    <string name="questByExp">Always aiming at the top !</string>
+    <string name="questByExp">Always aiming at the top!</string>
+    <string name="leagueReward">Arena Reward</string>
+    <string name="leagueDesc">By winning battles against other players, you\'ll climb the overall leaderboard, and based on your position, you\'ll receive an item of the grade you\'ve earned.</string>
+    <string name="leaguePos">Current Position</string>
+    <string name="gradeReward">Item Grade</string>
+    <string name="legendary">Legendary</string>
+    <string name="epic">Epic</string>
+    <string name="rare">Rare</string>
+    <string name="common">Common</string>
+    <string name="canGetReward">You can claim this week\'s reward!</string>
+    <string name="alreadyGotReward">You\'ve already claimed this week\'s reward!</string>
+    <string name="notEnoughBattles">You need to have fought at least 10 battles to claim the reward!</string>
 
 </resources>

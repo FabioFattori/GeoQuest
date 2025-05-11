@@ -6,6 +6,7 @@ import com.example.geoquest.apiService.dto.requests.CreatePoiRequest
 import com.example.geoquest.apiService.dto.requests.LoginParams
 import com.example.geoquest.apiService.dto.requests.NewUser
 import com.example.geoquest.apiService.dto.requests.CreateRandomItemRequest
+import com.example.geoquest.apiService.dto.requests.RewardRequest
 import com.example.geoquest.apiService.dto.requests.UpdatePlayerRequest
 import com.example.geoquest.apiService.dto.responses.CurrentLeagueResponse
 import com.example.geoquest.apiService.dto.responses.LeagueRewardResponse
@@ -99,6 +100,6 @@ interface ApiServiceInterface {
     @GET("league/canGetReward")
     suspend fun canPlayerGetReward(@Query("playerId") playerId: Int): Response<OnlyMessageResponse>
 
-    @POST("league/getReward")
-    suspend fun getReward(@Body playerId: Int): Response<LeagueRewardResponse>
+    @POST("SUCA")
+    suspend fun getReward(@Body request: RewardRequest): Response<LeagueRewardResponse>
 }
