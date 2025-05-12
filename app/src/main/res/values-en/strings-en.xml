@@ -74,5 +74,6 @@
     <string name="canGetReward">You can claim this week\'s reward!</string>
     <string name="alreadyGotReward">You\'ve already claimed this week\'s reward!</string>
     <string name="notEnoughBattles">You need to have fought at least 10 battles to claim the reward!</string>
+    <string name="findMatch">Find an Opponent</string>
 
 </resources>

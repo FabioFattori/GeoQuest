@@ -26,13 +26,13 @@ class SingleItemConfiguration {
 
 @Composable
 fun Modifier.borderOrGradient(showBorder: Boolean): Modifier = this.then(
-    if(showBorder){
+    if (showBorder) {
         Modifier.border(
             width = 5.dp,
             color = MaterialTheme.colorScheme.primary,
             shape = RoundedCornerShape(16.dp)
         )
-    }else{
+    } else {
         Modifier.border(
             width = 5.dp,
             brush = getGradient(),
@@ -47,22 +47,23 @@ fun SingleItem(
     rarity: Color?,
     image: @Composable () -> Unit,
     clickable: Boolean,
-    controller : SingleItemController = remember { SingleItemController() },
+    controller: SingleItemController = remember { SingleItemController() },
     onClick: () -> Unit = {}
 ) {
     val isClicked = controller.isClicked
-
+    val size = SingleItemConfiguration.size
+    val sizeOffset = size.value + 30
     Box(
         modifier = modifier
-            .size(SingleItemConfiguration.size)
+            .size(size)
             .background(
                 brush = if (isClicked.value) getGradient() else Brush.radialGradient(
                     colors = listOf(
                         rarity ?: MaterialTheme.colorScheme.tertiary,
                         MaterialTheme.colorScheme.tertiary
                     ),
-                    center = Offset(0.5f, 0.5f),
-                    radius = Float.POSITIVE_INFINITY
+                    center = Offset(sizeOffset,sizeOffset),
+                    radius = sizeOffset+5
                 ),
                 shape = RoundedCornerShape(18.dp)
             )

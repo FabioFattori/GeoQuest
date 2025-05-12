@@ -48,7 +48,7 @@ fun POIDialog(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(410.dp),
+                .height(430.dp),
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(

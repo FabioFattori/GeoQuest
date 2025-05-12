@@ -26,7 +26,7 @@
     <string name="maxLifa">Vitalità Massima</string>
     <string name="winBattles">Battaglie Vinte</string>
     <string name="totalBattles">Battaglie Totali</string>
-    <string name="mapbox_access_token" tools:ignore="Typos" translatable="false">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
+    <string name="mapbox_access_token" translatable="false" tools:ignore="Typos">pk.eyJ1IjoiaWwtYnJvZGVyIiwiYSI6ImNtOW5iaGJoaTBlbzQyanNmOGU1cDJhM3MifQ.xoLOC8NKGjL_b1SYA4H9dw</string>
     <string name="NoLocationPermission" tools:ignore="Typos">Questa funzionalità funziona solo accettando il permesso di location</string>
     <string name="LoadingLocation" tools:ignore="Typos">Caricamento della posizione, attendere…</string>
     <string name="questByFoot">Gambe in Spalle!</string>
@@ -74,4 +74,6 @@
     <string name="canGetReward">Puoi riscattare la ricompensa di questa settimana!</string>
     <string name="alreadyGotReward">Hai già riscattato la ricompensa per questa settimana!</string>
     <string name="notEnoughBattles">Devi almeno aver combattuto 10 battaglie per poter riscattare la ricompensa!</string>
+    <string name="findMatch">Cerca un Avversario</string>
+    <string name="title_activity_battle">BattleActivity</string>
 </resources>

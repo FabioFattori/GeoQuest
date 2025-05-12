@@ -86,8 +86,9 @@ fun CustomBottomBar(
     BottomAppBar(
         modifier = modifier
             .fillMaxWidth()
+            .padding(0.dp)
             .height(
-                130.dp
+                135.dp
             ),
         containerColor = MaterialTheme.colorScheme.background,
         content = {

@@ -59,9 +59,9 @@ class GameActivity : ComponentActivity(), PermissionsListener {
 
     override fun onPermissionResult(granted: Boolean) {
         if (granted) {
-            Log.d("DIOCANE", "Permission granted")
+            Log.d("LOCATION", "Permission granted")
         } else {
-            Log.d("DIOCANE", "Permission not granted")
+            Log.d("LOCATION", "Permission not granted")
         }
 
         // need to do this cause i need to reload the home screen
@@ -95,7 +95,6 @@ class GameActivity : ComponentActivity(), PermissionsListener {
                 }
             }
         }
-
     }
 }
 

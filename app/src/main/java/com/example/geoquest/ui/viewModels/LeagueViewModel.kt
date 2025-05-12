@@ -32,6 +32,10 @@ class LeagueViewModel() : ViewModel() {
     val isGettingReward = mutableStateOf(false)
     val reward = mutableStateOf<EquippableItem?>(null)
 
+    // getOpponent variables
+    val isAskingForOpponent = mutableStateOf(false)
+    val opponent = mutableStateOf<Player?>(null)
+
     init {
         canPlayerGetReward()
     }
@@ -96,6 +100,18 @@ class LeagueViewModel() : ViewModel() {
                 }
                 isGettingReward.value = false
             }
+        }
+    }
+
+    fun getOpponent(onFinished : (player: Player) -> Unit) {
+        viewModelScope.launch {
+            isAskingForOpponent.value = true
+            val response = ApiService.retrofit.findOpponent(player.id)
+            if (response.isSuccessful) {
+                opponent.value = response.body()!!
+                onFinished(opponent.value!!)
+            }
+            isAskingForOpponent.value = false
         }
     }
 }

@@ -17,6 +17,7 @@ import com.example.geoquest.apiService.dto.responses.UpdatePlayerResponse
 import com.example.geoquest.business.models.CollectedPoi
 import com.example.geoquest.business.models.CompletedQuest
 import com.example.geoquest.business.models.EquippableItem
+import com.example.geoquest.business.models.Player
 import com.example.geoquest.business.models.UsableItem
 import retrofit2.Response
 import retrofit2.http.Body
@@ -100,6 +101,9 @@ interface ApiServiceInterface {
     @GET("league/canGetReward")
     suspend fun canPlayerGetReward(@Query("playerId") playerId: Int): Response<OnlyMessageResponse>
 
-    @POST("SUCA")
+    @POST("league/getReward")
     suspend fun getReward(@Body request: RewardRequest): Response<LeagueRewardResponse>
+
+    @GET("league/findOpponent/{playerId}")
+    suspend fun findOpponent(@Path("playerId") playerId: Int): Response<Player>
 }

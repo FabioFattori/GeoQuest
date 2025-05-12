@@ -12,10 +12,10 @@ data class EquippableItem(
     val rarity: Rarity,
 ) : InventoryItem{
     fun getActualDamage() : Int{
-        return damage + blueprint.baseDamage
+        return damage + blueprint.baseDamage * rarity.multiplier
     }
 
     fun getActualHealth() : Int{
-        return health + blueprint.baseHealth
+        return health + blueprint.baseHealth * rarity.multiplier
     }
 }
