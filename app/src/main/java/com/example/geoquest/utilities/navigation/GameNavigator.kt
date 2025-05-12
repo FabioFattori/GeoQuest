@@ -6,7 +6,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.geoquest.ui.screens.BattleScreen
 import com.example.geoquest.ui.screens.HomeScreen
 import com.example.geoquest.ui.screens.InventoryScreen
 import com.example.geoquest.ui.screens.LeagueScreen

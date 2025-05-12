@@ -1,7 +1,6 @@
 package com.example.geoquest.ui.components.baseComponents
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -22,7 +21,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.geoquest.business.models.Player
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getSize
 

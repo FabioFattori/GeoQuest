@@ -6,7 +6,6 @@ import com.example.geoquest.apiService.dto.requests.UpdatePlayerRequest
 import com.example.geoquest.business.models.enums.EquippableItemTypes
 import com.example.geoquest.ui.viewModels.factories.GlobalViewModels
 import com.example.geoquest.utilities.PreferenceManager
-import kotlinx.coroutines.GlobalScope
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 

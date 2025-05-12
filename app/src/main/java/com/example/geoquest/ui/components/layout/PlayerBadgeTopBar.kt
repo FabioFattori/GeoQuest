@@ -1,6 +1,5 @@
 package com.example.geoquest.ui.components.layout
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
