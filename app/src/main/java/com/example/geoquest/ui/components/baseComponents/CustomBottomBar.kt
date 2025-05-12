@@ -70,7 +70,7 @@ fun CustomBottomBar(
             ),
             Route(
                 icon = battleIcon,
-                route = Screens.Battles.route,
+                route = Screens.League.route,
                 contentDescription = "Inventory"
             ),
         )

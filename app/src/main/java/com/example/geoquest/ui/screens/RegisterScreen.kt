@@ -109,7 +109,13 @@ fun RegisterScreen(
                                 if (response.isSuccessful) {
                                     snackBarHostState.showSnackbar(reg200String)
                                     userViewModel.storeResponse(response.body() as RegisterAndLoginResponse)
-                                    context.startActivity(Intent(context, GameActivity::class.java))
+                                    context.startActivity(
+                                        Intent(
+                                            context,
+                                            GameActivity::class.java
+                                        ).apply {
+                                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        })
                                 } else {
                                     snackBarHostState.showSnackbar("Errore: ${response.code()} - ${response.message()}")
                                 }

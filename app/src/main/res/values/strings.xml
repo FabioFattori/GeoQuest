@@ -75,5 +75,13 @@
     <string name="alreadyGotReward">Hai già riscattato la ricompensa per questa settimana!</string>
     <string name="notEnoughBattles">Devi almeno aver combattuto 10 battaglie per poter riscattare la ricompensa!</string>
     <string name="findMatch">Cerca un Avversario</string>
-    <string name="title_activity_battle">BattleActivity</string>
+    <string name="title_activity_battle" translatable="false">BattleActivity</string>
+    <string name="battleRegistry">Registro Battaglia</string>
+    <string name="battleTitle">Battaglia contro %1$s</string>
+    <string name="attack">attacca</string>
+    <string name="dealingDamage">infliggendo %1$d danni</string>
+    <string name="battleStart">Inizio Battaglia!</string>
+    <string name="battleEnd">La Battaglia è Finita!</string>
+    <string name="wonBattle">Hai Vinto, Ecco la tua ricompensa!</string>
+    <string name="loseBattle">Hai Perso!</string>
 </resources>

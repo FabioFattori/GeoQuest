@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.business.models.Player
 import com.example.geoquest.ui.theme.TextType
@@ -45,6 +46,7 @@ fun SingleUserRow(player: Player, isHighlighted: Boolean, isDialogOpen: MutableS
         Text(
             player.name,
             fontSize = getSize(TextType.Normal),
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(start = 7.dp),
             color = if (isHighlighted)
                 MaterialTheme.colorScheme.background

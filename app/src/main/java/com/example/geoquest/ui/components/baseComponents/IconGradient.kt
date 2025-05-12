@@ -22,7 +22,7 @@ fun IconGradient(
         contentDescription,
         modifier = modifier
             .graphicsLayer(alpha = 0.99f)
-            .drawWithCache() {
+            .drawWithCache {
                 onDrawWithContent {
                     drawContent()
                     drawRect(

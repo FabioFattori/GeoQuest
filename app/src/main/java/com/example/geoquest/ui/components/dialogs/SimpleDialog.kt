@@ -35,14 +35,14 @@ enum class DialogMode(val icon: ImageVector, val color: Color) {
 fun SimpleDialog(
     text: String,
     onOk: () -> Unit,
-    onNo: () -> Unit,
+    onNo: (() -> Unit)?,
     dialogMode: DialogMode = DialogMode.Warning
 ) {
     val okText = stringResource(R.string.yes)
     val backText = stringResource(R.string.back)
 
     AlertDialog(
-        onDismissRequest = onNo,
+        onDismissRequest = onNo ?: onOk,
         icon = {
             Icon(
                 imageVector = dialogMode.icon,
@@ -65,14 +65,18 @@ fun SimpleDialog(
             )
         },
         dismissButton = {
-            CustomButton(
-                props = ButtonProps(
-                    label = backText,
-                    onClick = onNo
-                ),
-                modifier = Modifier.width(130.dp),
-                buttonShape = ButtonShapes.RoundedRect
-            )
+            if (onNo == null) {
+                null
+            } else {
+                CustomButton(
+                    props = ButtonProps(
+                        label = backText,
+                        onClick = onNo
+                    ),
+                    modifier = Modifier.width(130.dp),
+                    buttonShape = ButtonShapes.RoundedRect
+                )
+            }
         },
         properties = DialogProperties(
             true,

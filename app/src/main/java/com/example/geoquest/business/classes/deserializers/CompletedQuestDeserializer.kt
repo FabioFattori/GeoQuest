@@ -1,7 +1,5 @@
 package com.example.geoquest.business.classes.deserializers
 
-import com.example.geoquest.business.classes.Position
-import com.example.geoquest.business.models.CollectedPoi
 import com.example.geoquest.business.models.CompletedQuest
 import com.example.geoquest.business.models.TimeStamps
 import com.google.gson.*

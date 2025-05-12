@@ -75,5 +75,13 @@
     <string name="alreadyGotReward">You\'ve already claimed this week\'s reward!</string>
     <string name="notEnoughBattles">You need to have fought at least 10 battles to claim the reward!</string>
     <string name="findMatch">Find an Opponent</string>
+    <string name="battleRegistry">Battle Registry</string>
+    <string name="battleTitle">Battle versus %1$s</string>
+    <string name="attack">" attacks "</string>
+    <string name="dealingDamage">" dealing %1$d "</string>
+    <string name="battleStart">Battle Started!</string>
+    <string name="battleEnd">Battle Ended!</string>
+    <string name="wonBattle">You Win, Here\'s your reward!</string>
+    <string name="loseBattle">You Lose!</string>
 
 </resources>

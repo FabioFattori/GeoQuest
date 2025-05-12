@@ -15,8 +15,14 @@ object PreferenceManager {
     private lateinit var prefs: SharedPreferences
     private val gson = Gson()
 
+    fun isInitialized(): Boolean {
+        return ::prefs.isInitialized
+    }
+
     fun init(context: Context) {
-        prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        if (!isInitialized()) {
+            prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        }
     }
 
     fun saveToken(token: String) {
@@ -55,7 +61,7 @@ object PreferenceManager {
         prefs.edit { putString("quests", jsonArray.toString()) }
     }
 
-    fun getQuests(context: Context, onFinished:(List<Quest>)-> Unit ) {
+    fun getQuests(context: Context, onFinished: (List<Quest>) -> Unit) {
         val storedQuests = prefs.getString("quests", "") ?: ""
         if (storedQuests.isEmpty()) {
             return onFinished(emptyList())
@@ -65,28 +71,28 @@ object PreferenceManager {
         val jsonArray = JSONArray(storedQuests)
         val questList = mutableListOf<Quest>()
 
-        for (i in 0 .. jsonArray.length()-1) {
+        for (i in 0..jsonArray.length() - 1) {
             val jsonObject = jsonArray.getJSONObject(i)
             val type = jsonObject.getString("type")
             when (type) {
                 "ExpQuest" -> QuestByExp.fromJson(jsonObject, context) { quest ->
                     questList.add(quest)
                     loadedQuests++
-                    if(loadedQuests == jsonArray.length())
+                    if (loadedQuests == jsonArray.length())
                         onFinished(questList)
                 }
 
                 "FootQuest" -> QuestByFoot.fromJson(jsonObject, context) { quest ->
                     questList.add(quest)
                     loadedQuests++
-                    if(loadedQuests == jsonArray.length())
+                    if (loadedQuests == jsonArray.length())
                         onFinished(questList)
                 }
 
                 else -> onFinished(questList)
             }
         }
-        if (loadedQuests == jsonArray.length()){
+        if (loadedQuests == jsonArray.length()) {
             onFinished(questList)
         }
     }

@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.geoquest.ui.theme.TextType
 import com.example.geoquest.ui.theme.getGradient
@@ -23,6 +24,7 @@ data class ButtonProps(
     val label: String,
     val onClick: () -> Unit,
     val isEnabled: Boolean = true,
+    val buttonSize : Dp = 180.dp
 )
 
 enum class ButtonShapes(val shape: Shape) {
@@ -51,7 +53,7 @@ fun CustomButton(
             Box(
                 modifier = Modifier
                     .size(
-                        width = 180.dp,
+                        width = props.buttonSize,
                         height = 30.dp
                     ),
                 contentAlignment = Alignment.Center,

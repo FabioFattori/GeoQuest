@@ -1,5 +1,6 @@
 package com.example.geoquest.business.classes
 
+import android.os.Parcelable
 import com.example.geoquest.business.models.CollectedPoi
 import kotlinx.serialization.SerialName
 import java.util.Date
@@ -8,6 +9,7 @@ import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
+import kotlinx.parcelize.Parcelize
 
 data class DayPointOfInterest(
     val name: String?, val position: Position, val category: String?
@@ -43,6 +45,7 @@ data class DayPointOfInterest(
     }
 }
 
+@Parcelize
 data class Position(
     @SerialName("latitude") val lat: Double, @SerialName("longitude") val lon: Double
-)
+) : Parcelable

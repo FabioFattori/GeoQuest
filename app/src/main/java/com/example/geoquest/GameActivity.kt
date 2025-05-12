@@ -29,6 +29,7 @@ class GameActivity : ComponentActivity(), PermissionsListener {
     lateinit var navController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        PreferenceManager.init(context = this)
         if (PermissionsManager.areLocationPermissionsGranted(context = this)) {
             // Permission sensitive logic called here, such as activating the Maps SDK's LocationComponent to show the device's location
         } else {

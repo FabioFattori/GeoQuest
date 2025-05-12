@@ -34,12 +34,8 @@ import kotlin.math.roundToInt
 @Composable
 fun PlayerBadgeForTopBar(modifier: Modifier) {
     // get the user, if it is null throw error
-    val player = try {
-        PreferenceManager.getObject("player", Player::class.java)
-    } catch (ex: Exception) {
-        Log.d("ERROR", "No player found, you're not supposed to be here! ${ex.message}")
-        null
-    }
+    val player = PreferenceManager.getObject("player", Player::class.java)
+
 
     if (player == null) {
         Text("No player")

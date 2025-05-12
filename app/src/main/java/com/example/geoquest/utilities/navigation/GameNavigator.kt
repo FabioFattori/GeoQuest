@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import com.example.geoquest.ui.screens.BattleScreen
 import com.example.geoquest.ui.screens.HomeScreen
 import com.example.geoquest.ui.screens.InventoryScreen
+import com.example.geoquest.ui.screens.LeagueScreen
 import com.example.geoquest.ui.screens.ProfileScreen
 import com.example.geoquest.ui.screens.QuestScreen
 import com.example.geoquest.ui.screens.SettingsScreen
@@ -43,8 +44,8 @@ fun GameNavigator(
             )
         }
 
-        composable(Screens.Battles.route) {
-            BattleScreen(modifier = modifier)
+        composable(Screens.League.route) {
+            LeagueScreen(modifier = modifier)
         }
 
         composable(Screens.Inventory.route) {

@@ -29,7 +29,7 @@ fun RewardDialog(
     onConfirmation: () -> Unit,
     image: @Composable () -> Unit,
     title: String,
-    rarity: Rarity
+    rarity: Rarity?
 ) {
 
     val okString = stringResource(R.string.get)
@@ -56,7 +56,7 @@ fun RewardDialog(
 
                 SingleItem(
                     image = image,
-                    rarity = rarity.getColor(),
+                    rarity = rarity?.getColor(),
                     modifier = Modifier,
                     clickable = false,
                 )

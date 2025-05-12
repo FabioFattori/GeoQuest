@@ -9,5 +9,7 @@ data class UpdatePlayerRequest(
     val helmetId: Int?,
     val weaponId: Int?,
     val runeId: Int?,
-    val currentHealth : Int?
+    val currentHealth : Int?,
+    val maxHealth : Int?,
+    val maxLevel : Int?,
 )
