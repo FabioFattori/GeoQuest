@@ -20,6 +20,18 @@
         android:theme="@style/Theme.GeoQuest"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <activity-alias
+            android:name="ViewPermissionUsageActivity"
+            android:exported="true"
+            android:targetActivity=".GameActivity"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+            </intent-filter>
+        </activity-alias>
+
         <activity
             android:name=".BattleActivity"
             android:exported="false"
@@ -38,5 +50,9 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".GameActivity" />
     </application>
+
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+    </queries>
 
 </manifest>

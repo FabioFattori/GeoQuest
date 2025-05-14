@@ -115,8 +115,8 @@ class CreateRewardViewModel : ViewModel() {
             throw IllegalStateException("Player is null")
         }
         when (typeToGenerate) {
-            GenerateType.UsableItem -> createUsable(player, onFinished)
-            GenerateType.EquippableItem -> createEquippable(player, onFinished)
+            GenerateType.UsableItem -> createUsable(player, onFinished, giveItemToPlayer)
+            GenerateType.EquippableItem -> createEquippable(player, onFinished, giveItemToPlayer)
         }
 
         if (giveItemToPlayer) {

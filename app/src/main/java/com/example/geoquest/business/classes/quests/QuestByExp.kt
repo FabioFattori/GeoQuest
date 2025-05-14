@@ -9,11 +9,11 @@ import com.example.geoquest.ui.viewModels.InventoryViewModel
 import com.example.geoquest.ui.viewModels.QuestManager
 import com.example.geoquest.utilities.PreferenceManager
 import org.json.JSONObject
+import kotlin.math.min
 
 class QuestByExp(
     val context: Context,
     val playerExpAtQuestStart: Int,
-    val alreadyMadeProgress : Int = playerExpAtQuestStart,
     firstChoice: EquippableItem,
     secondChoice: UsableItem,
     difficulty: Difficulties = extractRandomDifficulty(),
@@ -29,19 +29,19 @@ class QuestByExp(
     override fun toJson(): JSONObject {
         val json = super.toJson()
         json.put("type", "ExpQuest")
-        json.put("progress",getCurrentProgressNumber())
+        json.put("progress", getCurrentProgressNumber())
         return json
     }
 
-    private fun getCurrentProgressNumber() : Int{
+    override fun getCurrentProgressNumber(): Int {
         val player = PreferenceManager.getObject("player", Player::class.java)
         if (player == null) throw Exception("PLAYER IS NULL")
-
-        return player.experienceCollected - playerExpAtQuestStart + alreadyMadeProgress
+        return min(player.experienceCollected - playerExpAtQuestStart, maxProgress)
     }
 
     override suspend fun getProgress(): Int {
-        return getProgress(getCurrentProgressNumber(), maxProgress)
+        val toRet = getProgress(getCurrentProgressNumber(), maxProgress)
+        return toRet
     }
 
     companion object {
@@ -59,7 +59,6 @@ class QuestByExp(
                         firstChoice = equippable,
                         secondChoice = usable,
                         playerExpAtQuestStart = json.getInt("exp"),
-                        alreadyMadeProgress = json.getInt("progress"),
                         difficulty = difficulty
                     )
                     onFinished(quest)

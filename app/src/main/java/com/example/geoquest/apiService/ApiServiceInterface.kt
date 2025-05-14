@@ -6,6 +6,7 @@ import com.example.geoquest.apiService.dto.requests.CreatePoiRequest
 import com.example.geoquest.apiService.dto.requests.LoginParams
 import com.example.geoquest.apiService.dto.requests.NewUser
 import com.example.geoquest.apiService.dto.requests.CreateRandomItemRequest
+import com.example.geoquest.apiService.dto.requests.OwnItemRequest
 import com.example.geoquest.apiService.dto.requests.RewardRequest
 import com.example.geoquest.apiService.dto.requests.UpdatePlayerRequest
 import com.example.geoquest.apiService.dto.responses.CurrentLeagueResponse
@@ -87,12 +88,15 @@ interface ApiServiceInterface {
     suspend fun createCompletedQuest(@Body data: CreateCompletedQuestRequest): Response<CompletedQuest>
 
     @PUT("usableItems/{id}")
-    suspend fun ownUsableItem(@Path("id") itemId: Int, @Body ownerId: Int): Response<UsableItem>
+    suspend fun ownUsableItem(
+        @Path("id") itemId: Int,
+        @Body data: OwnItemRequest
+    ): Response<UsableItem>
 
     @PUT("equippableItems/{id}")
     suspend fun ownEquippableItem(
         @Path("id") itemId: Int,
-        @Body ownerId: Int
+        @Body data: OwnItemRequest
     ): Response<EquippableItem>
 
     @GET("league")

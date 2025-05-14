@@ -1,7 +1,13 @@
 package com.example.geoquest.ui.viewModels
 
+import android.app.Activity
 import android.content.Context
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.runtime.mutableStateOf
+import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.PermissionController
+import androidx.health.connect.client.permission.HealthPermission
+import androidx.health.connect.client.records.StepsRecord
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.geoquest.apiService.ApiService
@@ -34,6 +40,8 @@ class QuestManager(context: Context) : ViewModel() {
                 PreferenceManager.getObject("player", Player::class.java)!!,
                 context
             )
+
+            isLoadingQuests.value = false
         }
     }
 
@@ -78,7 +86,6 @@ class QuestManager(context: Context) : ViewModel() {
 
     fun generateQuests(player: Player, context: Context) {
         val generator = CreateRewardViewModel()
-        var nGenerationCompleted = questsForPlayer.value.size
 
         for (i in 1..MAX_ACTIVE_QUESTS - questsForPlayer.value.size) {
             generator.clearGeneratedEquippableItem()
@@ -108,19 +115,14 @@ class QuestManager(context: Context) : ViewModel() {
                                 playerExpAtQuestStart = player.experienceCollected
                             )
                         }
-                        nGenerationCompleted++
                         questsForPlayer.value += newQuest
                         PreferenceManager.saveQuests(questsForPlayer.value)
-                        if (questsForPlayer.value.size == MAX_ACTIVE_QUESTS) isLoadingQuests.value =
-                            false
                     } else
                         throw Exception("something is null => eq $equippableItem, usa $usableItem")
 
                 }, giveItemToPlayer = false)
             }, giveItemToPlayer = false)
         }
-        if (questsForPlayer.value.size == MAX_ACTIVE_QUESTS || nGenerationCompleted == MAX_ACTIVE_QUESTS)
-            isLoadingQuests.value = false
 
     }
 

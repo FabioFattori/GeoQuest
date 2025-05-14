@@ -20,7 +20,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL", "\"http://172.28.176.1:81/api/\"")
+        buildConfigField("String", "BASE_URL", "\"http://172.17.80.1:81/api/\"")
         buildConfigField("String", "POI_API", "\"https://overpass-api.de/api/\"")
 
     }

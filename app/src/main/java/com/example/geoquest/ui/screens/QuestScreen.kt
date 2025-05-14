@@ -1,6 +1,8 @@
 package com.example.geoquest.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +16,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.PermissionController
+import androidx.health.connect.client.permission.HealthPermission
+import androidx.health.connect.client.records.StepsRecord
 import com.example.geoquest.ui.viewModels.QuestManager
 import com.example.geoquest.business.models.Player
 import com.example.geoquest.ui.components.baseComponents.BigLoader
@@ -26,7 +32,7 @@ import com.example.geoquest.utilities.PreferenceManager
 
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
-fun QuestScreen(modifier: Modifier) {
+fun QuestScreen(modifier: Modifier, reloadPage: () -> Unit) {
     var selectedTab by remember { mutableIntStateOf(0) }
     val context = LocalContext.current
     val questManager = remember { QuestManager(context) }
@@ -53,6 +59,7 @@ fun QuestScreen(modifier: Modifier) {
                         items(questsToComplete.value) { quest ->
                             SingleQuest(toShow = quest) {
                                 questManager.removeQuest(quest)
+                                reloadPage()
                             }
                             if (
                                 questsToComplete.value.indexOf(quest) != questsToComplete.value.size - 1

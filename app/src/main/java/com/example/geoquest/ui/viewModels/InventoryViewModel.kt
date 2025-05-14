@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.geoquest.apiService.ApiService
 import com.example.geoquest.apiService.dto.requests.GetInventoryRequest
+import com.example.geoquest.apiService.dto.requests.OwnItemRequest
 import com.example.geoquest.business.models.EquippableItem
 import com.example.geoquest.business.models.Player
 import com.example.geoquest.business.models.UsableItem
@@ -124,12 +125,13 @@ class InventoryViewModel : ViewModel() {
         _usableItems.value = currentList
     }
 
-    fun ownEquippableItem(toOwn : EquippableItem){
+    fun ownEquippableItem(toOwn: EquippableItem) {
         val player = PreferenceManager.getObject("player", Player::class.java)
-        if(player == null) throw Exception("NO PLAYER to be the owner")
+        if (player == null) throw Exception("NO PLAYER to be the owner")
         viewModelScope.launch {
             try {
-                val response = ApiService.retrofit.ownEquippableItem(toOwn.id,player.id)
+                val response =
+                    ApiService.retrofit.ownEquippableItem(toOwn.id, OwnItemRequest(player.id))
                 if (!response.isSuccessful) {
                     throw Exception("ERROR IN THE REQUEST")
                 }
@@ -140,12 +142,13 @@ class InventoryViewModel : ViewModel() {
         }
     }
 
-    fun ownUsableItem(toOwn : UsableItem){
+    fun ownUsableItem(toOwn: UsableItem) {
         val player = PreferenceManager.getObject("player", Player::class.java)
-        if(player == null) throw Exception("NO PLAYER to be the owner")
+        if (player == null) throw Exception("NO PLAYER to be the owner")
         viewModelScope.launch {
             try {
-                val response = ApiService.retrofit.ownUsableItem(toOwn.id,player.id)
+                val response =
+                    ApiService.retrofit.ownUsableItem(toOwn.id, OwnItemRequest(player.id))
                 if (!response.isSuccessful) {
                     throw Exception("ERROR IN THE REQUEST")
                 }

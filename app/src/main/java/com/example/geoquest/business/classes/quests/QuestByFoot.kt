@@ -29,6 +29,9 @@ class QuestByFoot(
     difficulty
 ) {
     val maxProgress = calculateMaxProgress(QuestManager.QuestByFootConfiguration.baseMaxProgression)
+    override fun getCurrentProgressNumber(): Int {
+        return alreadyMadeProgress
+    }
 
     override suspend fun getProgress(): Int {
         val healthConnectClient = HealthConnectClient.getOrCreate(context)
@@ -37,7 +40,6 @@ class QuestByFoot(
         val requiredPermission = androidx.health.connect.client.permission.HealthPermission.getReadPermission(StepsRecord::class)
 
         if (requiredPermission !in granted) {
-            // Permission not granted — return fallback or signal to the UI that permission is needed
             return 0
         }
 

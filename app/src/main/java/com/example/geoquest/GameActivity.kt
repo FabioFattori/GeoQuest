@@ -3,14 +3,20 @@ package com.example.geoquest
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.PermissionController
+import androidx.health.connect.client.permission.HealthPermission
+import androidx.health.connect.client.records.StepsRecord
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.geoquest.ui.components.layout.Helmet
@@ -30,10 +36,10 @@ class GameActivity : ComponentActivity(), PermissionsListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         PreferenceManager.init(context = this)
-        if (PermissionsManager.areLocationPermissionsGranted(context = this)) {
-            // Permission sensitive logic called here, such as activating the Maps SDK's LocationComponent to show the device's location
-        } else {
-            permissionsManager = PermissionsManager(this)
+
+        permissionsManager = PermissionsManager(this)
+
+        if (!PermissionsManager.areLocationPermissionsGranted(context = this)) {
             permissionsManager.requestLocationPermissions(this)
         }
 
@@ -78,6 +84,33 @@ class GameActivity : ComponentActivity(), PermissionsListener {
             navController = rememberNavController()
             val localizedContext =
                 LocaleHelper.updateLocale(this, Languages.getLanguageFromCode(currentLang.value))
+
+            val healthConnectClient = HealthConnectClient.getOrCreate(LocalContext.current)
+
+            val permissions = setOf(
+                HealthPermission.getReadPermission(StepsRecord::class),
+            )
+
+            val requestPermissions =
+                rememberLauncherForActivityResult(contract = PermissionController.createRequestPermissionResultContract()) { granted ->
+
+                    if (granted.containsAll(permissions)) {
+                        // Permissions successfully granted , continue with reading the data from health connect
+                        Log.d("TAG","Permission granted")
+                    } else {
+                        Log.d("TAG","Permission not granted: $granted")
+                    }
+
+                }
+
+            LaunchedEffect(Unit) {
+                val granted = healthConnectClient.permissionController.getGrantedPermissions()
+                Log.d("TAG", "Granted permissions: $granted")
+                if (!granted.containsAll(permissions)) {
+                    Log.d("TAG", "Requesting permissions")
+                    requestPermissions.launch(permissions)
+                }
+            }
 
             CompositionLocalProvider(LocalContext provides localizedContext) {
                 GeoQuestTheme(darkTheme = isDark.value) {

@@ -47,6 +47,7 @@ fun getMaxProgression(quest: Quest): Int {
 @Composable
 fun SingleQuest(toShow: Quest,onGetQuest: () -> Unit) {
     val currentProgress = remember { mutableIntStateOf(0) }
+    val currentProgressToShow = remember { mutableIntStateOf(0) }
     val rewardString = stringResource(R.string.rewards)
     val expTitle = stringResource(R.string.experience)
     val expDesc = stringResource(R.string.experienceDesc, toShow.experiencePrize)
@@ -55,6 +56,7 @@ fun SingleQuest(toShow: Quest,onGetQuest: () -> Unit) {
 
     LaunchedEffect(Unit) {
         currentProgress.intValue = toShow.getProgress()
+        currentProgressToShow.intValue = toShow.getCurrentProgressNumber()
     }
     Column(
         modifier = Modifier
@@ -75,11 +77,11 @@ fun SingleQuest(toShow: Quest,onGetQuest: () -> Unit) {
             )
         }
         Text(
-            "${currentProgress.intValue}/${getMaxProgression(toShow)}",
+            "${currentProgressToShow.intValue}/${getMaxProgression(toShow)}",
             fontSize = getSize(TextType.Normal)
         )
         LinearProgressIndicator(
-            progress = { currentProgress.intValue.toFloat()/100 },
+            progress = { currentProgress.intValue.toFloat() },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -118,7 +120,7 @@ fun SingleQuest(toShow: Quest,onGetQuest: () -> Unit) {
             CustomButton(
                 props = ButtonProps(
                     label = getString,
-                    isEnabled = true,//currentProgress.intValue == 100,
+                    isEnabled = currentProgress.intValue == 100,
                     onClick = {
                         isDialogOpen.value = true
                     }

@@ -54,7 +54,9 @@ fun GameNavigator(
         }
 
         composable(Screens.Quests.route) {
-            QuestScreen(modifier = modifier)
+            QuestScreen(modifier = modifier, reloadPage = {
+                navController.navigate(Screens.Quests.route)
+            })
         }
     }
 }

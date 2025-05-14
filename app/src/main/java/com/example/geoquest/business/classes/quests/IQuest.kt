@@ -18,6 +18,7 @@ data class AllRewards(
 interface IQuest {
     fun collectPrize(firstIsChosen: Boolean): CollectedPrize
     fun displayPrizes(): AllRewards
+    fun getCurrentProgressNumber() : Int
     suspend fun getProgress(): Int
     fun toJson() : JSONObject
 }
